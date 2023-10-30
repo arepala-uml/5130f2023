@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akhil Repala</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        /* Body Styles */
+        body {
+            background-color: #f7f7f7;
+            color: #333;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .h2 {
+            font-size: 24px;
+            color: green
+        }
+
+        .contact-info {
+            font-size: 16px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            text-align: right;
+        }
+
+        /* Main Content Styles */
+        .container {
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+        }
+
+        .section h3 {
+            color: #333;
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            background-color: #2196F3;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0d6efd;
+        }
+
+        /* Image Styles */
+        .myimg {
+            border: 2px solid #333;
+            border-radius: 10px;
+            max-width: 200px;
+            margin: 20px auto;
+            display: block;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        /* Education Table Header */
+        .education-header {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .names {
+            display: flex;
+            align-items: center;
+        }
+
+        .name {
+            margin: 0 20px; /* Adjust the margin to create space between names */
+            font-size: 24px; /* Set the font size for the names */
+            cursor: pointer;
+        }
+
+                .card {
+            background-color: #e0ffe0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            width: 300px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .card img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        .colored-button {
+            background-color: #378e74; /* Set the background color to a shade of blue */
+            color: white; /* Set the text color to white */
+            padding: 10px 20px; /* Adjust the padding for button size */
+            border: none; /* Remove the default button border */
+            border-radius: 5px; /* Add rounded corners */
+            cursor: pointer; /* Change the cursor to a pointer on hover */
+        }
+
+        
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Akhil Repala</h1>
+        <div class="contact-info">
+            <p>Email: akhilrepala1808@gmail.com<br>Mobile: +1 978-569-7356</p>
+        </div>
+    </div>
+
+    <div class="names">
+        <div class="name">
+            <a href="Repala-Akhil_hw3_secondPhaseOfApp.html">HOME</a>
+        </div>
+        <div class="name">
+            <a href="portfolio.html">MY INVESTMENT PORTFOLIO</a>
+        </div>
+        <div class="name">
+            <a href="userinfo.html">USER INFO</a>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class ="h2">
+            <h2>Personal Information:</h2>
+        </div>
+
+    <br>
+    <form id="myForm"  method="post" enctype="multipart/form-data">
+        <label for="firstname">First Name:</label>
+        <input type="text" id="firstname" name="firstname" required><br><br>
+
+        <label for="lastname">Last Name:</label>
+        <input type="text" id="lastname" name="lastname" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required><br><br>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select><br><br>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required><br><br>
+
+        <label for="location">Place of birth:</label>
+        <input type="text" id="placeOfBirth" name="placeOfBirth" required><br><br>
+
+        <div class="h2">
+            <h2>Current Address:</h2>
+        </div>
+<br>
+
+<label for="street">Street:</label>
+<input type="text" id="street" name="street" required><br><br>
+
+<label for="state">State:</label>
+<input type="text" id="state" name="state" required><br><br>
+
+<label for="country">Country:</label>
+<input type="text" id="country" name="country" required><br><br>
+
+<div class="h2">
+    <h2>Additional Information:</h2>
+</div>
+<br>
+
+<label for="profession">What are you doing currently?</label>
+<input type="text" id="profession" name="profession" required><br><br>
+
+<label for="goal">What are your future gols?</label>
+<input type="text" id="goal" name="goal" required><br><br>
+
+<label for="location">Other facts about you:</label>
+<br>
+<textarea id="otherfacts" name="otherfacts" rows="5" cols="40" placeholder="Enter your facts"></textarea>
+<br>
+<br>
+
+        <label for="picture">Upload Picture:</label>
+        <input type="file" id="picture" name="picture" required><br><br>
+
+        <button class ="colored-button" type="submit">Submit</button>
+    </form>
+</div>
+    <script>
+        // Function to display and initialize form data
+        function displayFormData() {
+            const firstNameField = document.getElementById('firstname');
+            const  lastNameField = document.getElementById('lastname');
+            const emailField = document.getElementById('email');
+            const ageField = document.getElementById('age');
+            const genderField = document.getElementById('gender');
+            const dobField = document.getElementById('dob');
+            const pobField = document.getElementById('placeOfBirth');
+            const streetField = document.getElementById('street');
+            const stateField = document.getElementById('state');
+            const countryField = document.getElementById('country');
+            const professionField = document.getElementById('profession');
+            const goalField = document.getElementById('goal');
+            const otherfactsField = document.getElementById('otherfacts');
+
+            // Check if sessionStorage has stored data
+            if (sessionStorage.getItem('firstname')) {
+                firstNameField.value = sessionStorage.getItem('firstname');
+            }
+            if (sessionStorage.getItem('lastname')) {
+                lastNameField.value = sessionStorage.getItem('lastname');
+            }
+            if (sessionStorage.getItem('email')) {
+                emailField.value = sessionStorage.getItem('email');
+            }
+            if (sessionStorage.getItem('age')) {
+                ageField.value = sessionStorage.getItem('age');
+            }
+            if (sessionStorage.getItem('gender')) {
+                genderField.value = sessionStorage.getItem('gender');
+            }
+            if (sessionStorage.getItem('dob')) {
+                dobField.value = sessionStorage.getItem('dob');
+            }
+            if (sessionStorage.getItem('placeOfBirth')) {
+                pobField.value = sessionStorage.getItem('placeOfBirth');
+            }
+            if (sessionStorage.getItem('street')) {
+                streetField.value = sessionStorage.getItem('street');
+            }
+            if (sessionStorage.getItem('profession')) {
+                professionField.value = sessionStorage.getItem('profession');
+            }
+            if (sessionStorage.getItem('goal')) {
+                goalField.value = sessionStorage.getItem('goal');
+            }
+            if (sessionStorage.getItem('state')) {
+                stateField.value = sessionStorage.getItem('state');
+            }
+            if (sessionStorage.getItem('country')) {
+                countryField.value = sessionStorage.getItem('country');
+            }
+            if (sessionStorage.getItem('otherfacts')) {
+                otherfactsField.value = sessionStorage.getItem('otherfacts');
+            }
+
+
+            // Listen for changes in the form fields and update sessionStorage accordingly
+            firstNameField.addEventListener('input', function () {
+                sessionStorage.setItem('firstname', firstNameField.value);
+            });
+            lastNameField.addEventListener('input', function () {
+                sessionStorage.setItem('lastname', firstNameField.value);
+            });
+            emailField.addEventListener('input', function () {
+                sessionStorage.setItem('email', emailField.value);
+            });
+            ageField.addEventListener('input', function () {
+                sessionStorage.setItem('age', ageField.value);
+            });
+            genderField.addEventListener('input', function () {
+                sessionStorage.setItem('gender', genderField.value);
+            });
+            dobField.addEventListener('input', function () {
+                sessionStorage.setItem('dob', dobField.value);
+            });
+            pobField.addEventListener('input', function () {
+                sessionStorage.setItem('placeOfBirth', pobField.value);
+            });
+            streetField.addEventListener('input', function () {
+                sessionStorage.setItem('street', streetField.value);
+            });
+            stateField.addEventListener('input', function () {
+                sessionStorage.setItem('state', stateField.value);
+            });
+            countryField.addEventListener('input', function () {
+                sessionStorage.setItem('country', countryField.value);
+            });
+            professionField.addEventListener('input', function () {
+                sessionStorage.setItem('profession', professionField.value);
+            });
+            goalField.addEventListener('input', function () {
+                sessionStorage.setItem('goal', goalField.value);
+            });
+            otherfactsField.addEventListener('input', function () {
+                sessionStorage.setItem('otherfacts', otherfactsField.value);
+            });
+        }
+
+        // Function to handle form submission
+        function handleSubmit(event) {
+            event.preventDefault(); // Prevent the form from submitting
+
+            // Optionally, you can perform form validation and other actions here
+
+            alert('User data submitted');
+
+            
+            const firstname = document.getElementById('firstname').value;
+            const lastname = document.getElementById('firstname').value;
+            const email = document.getElementById('email').value;
+            const age = document.getElementById('age').value;
+            const gender = document.getElementById('gender').value;
+            const dob = document.getElementById('dob').value;
+            const pob = document.getElementById('placeOfBirth').value;
+            const street = document.getElementById('street').value;
+            const profession = document.getElementById('profession').value;
+            const goal = document.getElementById('goal').value;
+            const state = document.getElementById('state').value;
+            const country = document.getElementById('country').value;
+            const otherfacts = document.getElementById('otherfacts').value;
+
+            const formData = {
+                firstname: firstname,
+                lastname: lastname,
+                email: email,
+                age: age,
+                gender: gender,
+                dob: dob,
+                placeOfBirth: pob,
+                currentAddress: {
+                    street: street,
+                    state: state,
+                    country: country
+                },
+                profession: profession,
+                goal: goal,
+            };
+
+            // Store the data in localStorage
+            localStorage.setItem('formData', JSON.stringify(formData));
+            // Clear sessionStorage
+            sessionStorage.removeItem('firstname');
+            sessionStorage.removeItem('lastname');
+            sessionStorage.removeItem('age');
+            sessionStorage.removeItem('gender');
+            sessionStorage.removeItem('dob');
+            sessionStorage.removeItem('placeOfBirth');
+            sessionStorage.removeItem('profession');
+            sessionStorage.removeItem('goal');
+            sessionStorage.removeItem('email');
+            sessionStorage.removeItem('street');
+            sessionStorage.removeItem('state');
+            sessionStorage.removeItem('country');
+            sessionStorage.removeItem('otherfacts');
+            setTimeout(function () {
+                window.location.reload();
+            }, 100);
+        }
+
+        // Display the form data on page load
+        displayFormData();
+
+        document.getElementById('myForm').addEventListener('submit', handleSubmit);
+    </script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
