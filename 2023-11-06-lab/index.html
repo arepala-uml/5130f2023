@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .green-button {
+            background-color: green;
+            color: white;
+        }
+
+        .red-button {
+            background-color: red;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <form id="input-form">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required><br><br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone" required><br><br>
+
+        <label for="webpage">Webpage:</label>
+        <input type="text" id="webpage" name="webpage" required><br><br>
+
+        <button class="green-button" type="button" onclick="validateForm()">Submit</button>
+        <button class="red-button" type="button" onclick="clearForm()">Cancel</button>
+    </form>
+
+    <script>
+        function validateForm() {
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            const phoneRegex = /^(\(\d{3}\) ?\d{3}-\d{4}|\d{3}-\d{3}-\d{4}|\d{3} ?\d{3} ?\d{4}|\d{10})$/;
+            const webpageRegex = /^(http|https):\/\/[\w\-]+(\.[\w\-]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
+
+            const emailInput = document.getElementById("email").value;
+            const phoneInput = document.getElementById("phone").value;
+            const webpageInput = document.getElementById("webpage").value;
+
+            let validationMessage = "Validation Results:\n\n";
+
+            if (!emailRegex.test(emailInput)) {
+                validationMessage += "Invalid Email\n";
+            }
+
+            if (!phoneRegex.test(phoneInput)) {
+                validationMessage += "Invalid Phone Number\n";
+            }
+
+            if (!webpageRegex.test(webpageInput)) {
+                validationMessage += "Invalid Webpage URL\n";
+            }
+
+            if (validationMessage === "Validation Results:\n\n") {
+                validationMessage = "All inputs are valid!";
+            }
+
+            alert(validationMessage);
+
+            // Clear the form after displaying the popup
+            document.getElementById("input-form").reset();
+        }
+
+        function clearForm() {
+            document.getElementById("input-form").reset();
+        }
+    </script>
+</body>
+</html>
