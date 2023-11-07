@@ -1,70 +1,150 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Valiation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
-        .green-button {
-            background-color: green;
+        /* Body Styles */
+        body {
+            background-color: #f7f7f7;
+            color: #333;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: #4CAF50;
             color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .h2 {
+            font-size: 24px;
+            color: green
+        }
+
+        .contact-info {
+            font-size: 16px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            text-align: right;
+        }
+
+        /* Main Content Styles */
+        .container {
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .colored-button {
+            background-color: #4CAF50; /* Set the background color to a shade of blue */
+            color: white; /* Set the text color to white */
+            padding: 10px 20px; /* Adjust the padding for button size */
+            border: none; /* Remove the default button border */
+            border-radius: 5px; /* Add rounded corners */
+            cursor: pointer; /* Change the cursor to a pointer on hover */
         }
 
         .red-button {
             background-color: red;
             color: white;
+            padding: 10px 20px; /* Adjust the padding for button size */
+            border: none; /* Remove the default button border */
+            border-radius: 5px; /* Add rounded corners */
+            cursor: pointer; /* Change the cursor to a pointer on hover */
         }
+
+        
     </style>
 </head>
 <body>
-    <form id="input-form">
-        <label for="email">Email:</label>
-        <input type="text" id="email" name="email" required><br><br>
+    <div class="header">
+        <h1>Akhil Repala</h1>
+        <div class="contact-info">
+            <p>Email: akhilrepala1808@gmail.com<br>Mobile: +1 978-569-7356</p>
+        </div>
+    </div>
 
-        <label for="phone">Phone Number:</label>
-        <input type="text" id="phone" name="phone" required><br><br>
+    <div class="container">
+        <div class ="h2">
+            <h2>Form Validation</h2>
+        </div>
 
-        <label for="webpage">Webpage:</label>
-        <input type="text" id="webpage" name="webpage" required><br><br>
-
-        <button class="green-button" type="button" onclick="validateForm()">Submit</button>
-        <button class="red-button" type="button" onclick="clearForm()">Cancel</button>
+    <br>
+    <form id="myForm"  method="post" enctype="multipart/form-data">
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" required><br><br>
+    
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" name="phone" required><br><br>
+    
+            <label for="webpage">Webpage:</label>
+            <input type="text" id="webpage" name="webpage" required><br><br>
+    
+            <button class="colored-button" type="button" onclick="validateForm()">Submit</button>
+            <button class="red-button" type="button" onclick="clearForm()">Cancel</button>
     </form>
-
+</div>
     <script>
+        // Function to display and initialize form data
         function validateForm() {
             const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-            const phoneRegex = /^(\(\d{3}\) ?\d{3}-\d{4}|\d{3}-\d{3}-\d{4}|\d{3} ?\d{3} ?\d{4}|\d{10})$/;
-            const webpageRegex = /^(http|https):\/\/[\w\-]+(\.[\w\-]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
+            const phoneRegex = /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
+            const webpageRegex = /^((https|http|ftp)?:\/\/)?(www\.)?([a-zA-Z0-9.-]+\.[a-zA-Z]{2,3})(\/[^\s]*)?$/;
 
             const emailInput = document.getElementById("email").value;
             const phoneInput = document.getElementById("phone").value;
             const webpageInput = document.getElementById("webpage").value;
 
-            let validationMessage = "Validation Results:\n\n";
+            if (!emailInput || !phoneInput || !webpageInput) {
+                alert("Please enter all the fields.");
+                return;
+            }
+
+            let errorMessage = "";
 
             if (!emailRegex.test(emailInput)) {
-                validationMessage += "Invalid Email\n";
+                errorMessage += "Entered email is invalid - (Valid format: name@example.com)\n";
             }
 
             if (!phoneRegex.test(phoneInput)) {
-                validationMessage += "Invalid Phone Number\n";
+                errorMessage += "Entered Phone Number is invalid - (Valid format: (123) 456-7890, 123-456-7890, 1234567890) \n";
             }
 
             if (!webpageRegex.test(webpageInput)) {
-                validationMessage += "Invalid Webpage URL\n";
+                errorMessage += "Entered Webpage URL is invalid - (Valid format: http://www.example.com, www.example.com) \n";
             }
 
-            if (validationMessage === "Validation Results:\n\n") {
-                validationMessage = "All inputs are valid!";
+            if (errorMessage) {
+                alert("Validation Error:\n\n" + errorMessage);
+            } else {
+                alert("All the entered fields are valid!");
+                document.getElementById("myForm").reset();
             }
-
-            alert(validationMessage);
 
             // Clear the form after displaying the popup
-            document.getElementById("input-form").reset();
+            document.getElementById("myForm").reset();
         }
 
         function clearForm() {
-            document.getElementById("input-form").reset();
+            document.getElementById("myForm").reset();
         }
     </script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
