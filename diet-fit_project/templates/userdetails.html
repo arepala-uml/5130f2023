@@ -74,9 +74,9 @@
     <header>
         <h1>DIET FIT - Healthy Eating for Good Health</h1>
         <ul1>
-            <li1><a href="home.html">HOME</a></li1>
-            <li1><a href="userdetails.html">USER DETAILS</a></li1>
-            <li1><a href="userdetails.html">LOGIN</a></li1>
+            <li1><a href="home">HOME</a></li1>
+            <li1><a href="userdetails">USER DETAILS</a></li1>
+            <li1><a href="login">LOGIN</a></li1>
         </ul1>
     </header>
 
@@ -89,10 +89,10 @@
     <br>
     <form id="myForm"  method="post" enctype="multipart/form-data">
         <label for="Height">Height:</label>
-        <input type="text" id="firstname" name="firstname" required><br><br>
+        <input type="text" id="height" name="height" required><br><br>
 
         <label for="Weight">Weight:</label>
-        <input type="text" id="lastname" name="lastname" required><br><br>
+        <input type="text" id="weight" name="weight" required><br><br>
 
         <label for="age">Age:</label>
         <input type="number" id="age" name="age" required><br><br>
@@ -104,13 +104,48 @@
             <option value="other">Other</option>
         </select><br><br>
 
-        <button class ="colored-button" type="submit">Submit</button>
+        <button class ="colored-button" type="submit" onclick="calculateBMI(event)">Calculate BMI</button>
     </form>
+    <div id="result"></div>
 </div>
-    <script>
-    </script>
 
-    <!-- Bootstrap JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script>
+        function calculateBMI() {
+            // Get input values
+            event.preventDefault();
+
+            var gender = document.getElementById('gender').value;
+            var age = document.getElementById('age').value;
+            var height = document.getElementById('height').value;
+            var weight = document.getElementById('weight').value;
+
+            // Prepare data for the API request
+            var data = {
+                "gender": gender,
+                "age": age,
+                "height": height,
+                "weight": weight
+            };
+
+            // Make a POST request to the Flask API endpoint
+            fetch('/calculate_bmi', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(result => {
+                // Display the result on the page
+                
+                document.getElementById('result').innerHTML = 'BMI: ' + result.bmi.toFixed(2);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('result').innerHTML = 'Error calculating BMI.';
+            });
+        }
+    </script>
 </body>
 </html>

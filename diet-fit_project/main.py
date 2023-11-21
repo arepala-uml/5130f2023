@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, redirect, url_for
+from flask import Flask, request, jsonify, redirect, url_for,render_template
 from flask_pymongo import PyMongo
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
@@ -69,24 +69,54 @@ def protected():
 # Default Route
 @app.route('/', methods=['GET'])
 def default_route():
-    print("default route")
-    response = {'hello': 'world'}
-    return jsonify(response)
+    #print("default route")
+    #response = {'hello': 'world'}
+    return render_template('home.html')
+
+@app.route('/home', methods=['GET'])
+def home_page():
+    #print("default route")
+    #response = {'hello': 'world'}
+    return render_template('home.html')
+
+@app.route('/userdetails', methods=['GET'])
+def user_details():
+    #print("default route")
+    #response = {'hello': 'world'}
+    return render_template('userdetails.html')
+
+@app.route('/login', methods=['GET'])
+def login_page():
+    #print("default route")
+    #response = {'hello': 'world'}
+    return render_template('login.html')
 
 # Calculate BMI
-@app.route('/calculate_bmi', methods=['POST'])
+@app.route('/calculate_bmi', methods=['POST', 'OPTIONS'])
 def calculate_bmi():
-    data = request.get_json()
-    gender = data.get('gender')
-    age = data.get('age')
-    height = data.get('height')
-    weight = data.get('weight')
+    if request.method == 'OPTIONS':
+        # Respond to the preflight OPTIONS request
+        headers = {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST',
+            'Access-Control-Allow-Headers': 'Content-Type',
+        }
+        return ('', 204, headers)
+    elif request.method == 'POST':
+        # Handle the actual POST request
+        data = request.get_json()
+        gender = data.get('gender')
+        age = data.get('age')
+        height = int(data.get('height'))
+        weight = int(data.get('weight'))
 
-    # took this formula from - https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html
-    bmi = weight / ((height / 100) ** 2)
+        # took this formula from - https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html
+        bmi = weight / ((height / 100) ** 2)
 
-    response = {'bmi': bmi}
-    return jsonify(response)
+        response = {'bmi': bmi}
+        print(response)
+        return jsonify(response)
+
 
 # Calculate Average Calorie Intake
 @app.route('/calculate_calories', methods=['POST'])
