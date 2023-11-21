@@ -46,3 +46,8 @@ source venv/bin/activate
 ```
 python3 main.py
 ```
+
+3. To access the application, open the below url in the browser 
+```
+http://localhost:9000/
+```
