@@ -13,7 +13,7 @@ Utilizing this information along with the Body Mass Index (BMI), Diet-Fit genera
 plan displayed in an easy-to-follow table format. The plan accommodates diverse cuisines, dietary 
 restrictions, and exercise routines, ensuring a holistic approach to wellness. The key features 
 include BMI-based calorie calculations and ongoing updates for an evolving, tailored user 
-experience. In the flas server side, we added logic to calcuate calorie intake based on BMI as well as
+experience. In the flask server side, I added logic to calcuate calorie intake based on BMI as well as
 handled the rendering of new html page.
 
 
