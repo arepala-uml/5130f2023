@@ -14,7 +14,8 @@ plan displayed in an easy-to-follow table format. The plan accommodates diverse 
 restrictions, and exercise routines, ensuring a holistic approach to wellness. The key features 
 include BMI-based calorie calculations and ongoing updates for an evolving, tailored user 
 experience. In the flas server side, we added logic to calcuate calorie intake based on BMI as well as
-handled the rendering of new html page. 
+handled the rendering of new html page.
+
 
 
 References:
