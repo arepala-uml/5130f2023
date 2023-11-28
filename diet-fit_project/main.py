@@ -85,6 +85,17 @@ def user_details():
     #response = {'hello': 'world'}
     return render_template('userdetails.html')
 
+@app.route('/userdetails/dietplan', methods=['GET'])
+def dietplan_details():
+    # Pass user data as query parameters to the 'dietplan.html' page
+    user_data = {
+        'age': request.args.get('age'),
+        'height': request.args.get('height'),
+        'weight': request.args.get('weight'),
+        'gender': request.args.get('gender')
+    }
+    return render_template('dietplan.html', user_data=user_data)
+
 @app.route('/login', methods=['GET'])
 def login_page():
     #print("default route")
@@ -121,29 +132,45 @@ def calculate_bmi():
 # Calculate Average Calorie Intake
 @app.route('/calculate_calories', methods=['POST'])
 def calculate_calories():
-    data = request.get_json()
-    gender = data.get('gender')
-    bmi = data.get('bmi')
+    if request.method == 'OPTIONS':
+        # Respond to the preflight OPTIONS request
+        headers = {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST',
+            'Access-Control-Allow-Headers': 'Content-Type',
+        }
+        return ('', 204, headers)
+    elif request.method == 'POST':
+        # Handle the actual POST request
+        data = request.get_json()
+        gender = data.get('gender')
+        age = data.get('age')
+        height = int(data.get('height'))
+        weight = int(data.get('weight'))
 
-    # Define calorie intake based on gender and BMI
-    calorie_intake = 2000
-    # TODO - Example value written for first week, adjustments with respect to few more parameters are needed
-    if gender == 'male':
-        if bmi < 18.5:
-            calorie_intake = 2500  
-        elif 18.5 <= bmi < 24.9:
-            calorie_intake = 2200
-        else:
-            calorie_intake = 2000
-    elif gender == 'female':
-        if bmi < 18.5:
-            calorie_intake = 2000
-        elif 18.5 <= bmi < 24.9:
-            calorie_intake = 1800
-        else:
-            calorie_intake = 1600
-    response = {'calorie_intake': calorie_intake}
-    return jsonify(response)
+        # took this formula from - https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html
+        bmi = weight / ((height / 100) ** 2)
+
+        # Define calorie intake based on gender and BMI
+        calorie_intake = 2000
+        # TODO - Example value written for first week, adjustments with respect to few more parameters are needed
+        if gender == 'male':
+            if bmi < 18.5:
+                calorie_intake = 2500  
+            elif 18.5 <= bmi < 24.9:
+                calorie_intake = 2200
+            else:
+                calorie_intake = 2000
+        elif gender == 'female':
+            if bmi < 18.5:
+                calorie_intake = 2000
+            elif 18.5 <= bmi < 24.9:
+                calorie_intake = 1800
+            else:
+                calorie_intake = 1600
+        print(calorie_intake)    
+        response = {'calorie_intake': calorie_intake}
+        return jsonify(response)
 
 if __name__ == '__main__':
     app.run(port=9000, debug=True)

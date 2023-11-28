@@ -105,6 +105,8 @@
         </select><br><br>
 
         <button class ="colored-button" type="submit" onclick="calculateBMI(event)">Calculate BMI</button>
+        <button class="colored-button" type="button" onclick="calculateCalorie(event)">Calculate Calorie Intake</button>
+        <button class="colored-button" type="button" onclick="openDietPlan()">Diet Plan</button>
     </form>
     <div id="result"></div>
 </div>
@@ -146,6 +148,53 @@
                 document.getElementById('result').innerHTML = 'Error calculating BMI.';
             });
         }
+        function calculateCalorie() {
+            // Get input values
+            event.preventDefault();
+
+            var gender = document.getElementById('gender').value;
+            var age = document.getElementById('age').value;
+            var height = document.getElementById('height').value;
+            var weight = document.getElementById('weight').value;
+
+            // Prepare data for the API request
+            var data = {
+                "gender": gender,
+                "age": age,
+                "height": height,
+                "weight": weight
+            };
+
+            // Make a POST request to the Flask API endpoint
+            fetch('/calculate_calories', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(result => {
+                // Display the result on the page
+                
+                document.getElementById('result').innerHTML = 'Calorie Intake Count: ' + result.calorie_intake.toFixed(2);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('result').innerHTML = 'Error calculating Calorie intake.';
+            });
+        }
+
+        function openDietPlan() {
+            // Pass user input values as query parameters to the 'dietplan.html' page
+            var age = document.getElementById('age').value;
+            var height = document.getElementById('height').value;
+            var weight = document.getElementById('weight').value;
+            var gender = document.getElementById('gender').value;
+
+            window.location.href = 'userdetails/dietplan?age=' + age + '&height=' + height + '&weight=' + weight + '&gender=' + gender;
+        }
+
     </script>
 </body>
 </html>
