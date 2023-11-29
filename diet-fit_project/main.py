@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, redirect, url_for,render_template
 from flask_pymongo import PyMongo
+from pymongo import MongoClient
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
 app = Flask(__name__)
@@ -9,46 +10,82 @@ mongo = PyMongo(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
+# MongoDB connection settings
+MONGO_URI = "mongodb://localhost:27017/"
+DB_NAME = "dietfitdb"
+USERS_COLLECTION = "users"
+
+# Initialize MongoDB client
+client = MongoClient(MONGO_URI)
+db = client[DB_NAME]
+users_collection = db[USERS_COLLECTION]
+
 
 # MongoDB Utility Functions
-def get_user(username):
-    return mongo.db.users.find_one({'username': username})
+def get_user(email):
+    return users_collection.find_one({'email': email})
 
-
-def create_user(username, password):
-    mongo.db.users.insert({'username': username, 'password': password})
-
+def create_user(new_user):
+    users_collection.insert_one(new_user)
 
 # User Class for Flask-Login
 class User(UserMixin):
-    def __init__(self, username, password):
-        self.id = username
+    def __init__(self, email, password):
+        self.email = email
         self.password = password
 
 
 @login_manager.user_loader
-def load_user(user_id):
-    user_data = get_user(user_id)
+def load_user(email):
+    user_data = get_user(email)
     if not user_data:
         return None
-    return User(user_data['username'], user_data['password'])
+    return User(user_data['email'], user_data['password'])
 
 
 # Routes for Authentication
-@app.route('/login', methods=['POST'])
+@app.route('/loginCheck', methods=['POST'])
 def login():
     data = request.get_json()
-    username = data.get('username')
+    if not data or 'email' not in data or 'password' not in data:
+        return jsonify({"success": False, "message": "Invalid request"}), 401
+
+    email = data.get('email')
     password = data.get('password')
 
-    user_data = get_user(username)
-    if user_data and user_data['password'] == password:
-        user = User(username, password)
-        login_user(user)
-        return jsonify({'message': 'Login successful'})
-    else:
-        return jsonify({'message': 'Invalid credentials'}), 401
+    user_data = get_user(email)
 
+    if user_data and user_data['password'] == password:
+        user = User(email, password)
+        #login_user(user)
+        return jsonify({"success": True, "message": "Login successful"}), 201
+    else:
+        return jsonify({"success": False,"message": "Invalid username or password"}), 401
+
+@app.route('/signupCheck', methods=['POST'])
+def signup():
+    data = request.get_json()
+    # if not data or 'username' not in data or 'password' not in data:
+    #     return jsonify({"success": False, "message": "Invalid request"}), 401
+    email = data['email']
+    password = data['password']
+    firstName = data['firstName']
+    lastName = data['lastName']
+
+    user_data = get_user(email)
+    # Check if the username is already taken
+    if user_data:
+        return jsonify({"success": False, "message": "Username is already exists"}), 401
+    new_user = {
+        "email": email,
+        "firstName": firstName,
+        "lastName": lastName,
+        "password": password
+    }
+    create_user(new_user)
+    print("Successfully inserted new user entry in mongodb")
+
+    return jsonify({"success": True, "message": "Signup successful"}), 201
 
 @app.route('/logout', methods=['POST'])
 @login_required
@@ -80,6 +117,7 @@ def home_page():
     return render_template('home.html')
 
 @app.route('/userdetails', methods=['GET'])
+@login_required
 def user_details():
     #print("default route")
     #response = {'hello': 'world'}
@@ -101,6 +139,12 @@ def login_page():
     #print("default route")
     #response = {'hello': 'world'}
     return render_template('login.html')
+
+@app.route('/signup', methods=['GET'])
+def signup_page():
+    #print("default route")
+    #response = {'hello': 'world'}
+    return render_template('signup.html')
 
 # Calculate BMI
 @app.route('/calculate_bmi', methods=['POST', 'OPTIONS'])

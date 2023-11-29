@@ -74,6 +74,15 @@
     .form-group button:hover {
       background-color: #45a049;
     }
+
+    .colored-button {
+            background-color: #378e74; /* Set the background color to a shade of blue */
+            color: white; /* Set the text color to white */
+            padding: 10px 20px; /* Adjust the padding for button size */
+            border: none; /* Remove the default button border */
+            border-radius: 5px; /* Add rounded corners */
+            cursor: pointer; /* Change the cursor to a pointer on hover */
+        }
   </style>
 </head>
 <body>
@@ -88,21 +97,106 @@
     </header>
 
   <div class="container">
-    <h2>Login</h2>
-    <form class="login-form" action="#" method="post">
+    <h2>Welcome to Login Page</h2>
+    <form class="myForm" method="post" enctype="multipart/form-data">
       <div class="form-group">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
+        <label for="username">Email:</label>
+        <input type="text" id="email" name="email" required>
       </div>
       <div class="form-group">
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
       </div>
+      <div>
+        <ul1>
+          <li1><a href="signup">Visit Signup Page</a></li1>
+      </ul1>
+      </div>
+      <br>
       <div class="form-group">
-        <button type="submit">Login</button>
+        <button class ="colored-button" type="submit" onclick="login(event)">Login</button>
+        
       </div>
     </form>
   </div>
 
+  <script>
+    function login() {
+    // Get input values
+    event.preventDefault();
+
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+
+    // Prepare data for the API request
+    var data = {
+        "email": email,
+        "password": password
+    };
+
+    // Make a POST request to the Flask API endpoint
+    fetch('/loginCheck', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => response.json())  // Parse the JSON response
+    .then(result => {
+        // Display the result on the page
+        if (result.success) {
+            alert(result.message);
+            window.location.href = 'userdetails';
+        } else {
+            alert('Login failed: ' + result.message);
+            document.querySelector('.myForm').reset();
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while processing your request.');
+    });
+
+    document.querySelector('.myForm').reset();
+}
+
+function signup() {
+
+  window.location.href = 'signup'
+    // Get input values
+    // event.preventDefault();
+
+    // var username = document.getElementById('username').value;
+    // var password = document.getElementById('password').value;
+
+    // // Prepare data for the API request
+    // var data = {
+    //     "username": username,
+    //     "password": password
+    // };
+
+    // // Make a POST request to the Flask API endpoint
+    // fetch('/signup', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(data),
+    // })
+    // .then(response => response.json())
+    // .then(result => {
+    //     if (result.success) {
+    //         alert(result.message);
+    //     }else{
+    //       alert(result.message);
+    //     }
+    // })
+    // .catch(error => {
+    //     console.error('Error:', error);
+    //     alert('An error occurred while processing your request.');
+    // });
+}
+  </script>
 </body>
 </html>
