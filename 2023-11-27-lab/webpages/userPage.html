@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Users Page</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <style>
+            /* Body Styles */
+            body {
+                background-color: #f7f7f7;
+                color: #333;
+                font-family: Arial, sans-serif;
+            }
+    
+            /* Header Styles */
+            .header {
+                background-color: #4CAF50;
+                color: white;
+                padding: 20px;
+                text-align: center;
+                position: relative;
+            }
+    
+            .header h1 {
+                font-size: 36px;
+                margin-bottom: 10px;
+            }
+    
+            .h2 {
+                font-size: 24px;
+                color: green
+            }
+    
+            .contact-info {
+                font-size: 16px;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                text-align: right;
+            }
+    
+            /* Main Content Styles */
+            .container {
+                margin: 50px auto;
+                padding: 20px;
+                background-color: #ffffff;
+                border-radius: 10px;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            }
+    
+            .colored-button {
+                background-color: #4CAF50; /* Set the background color to a shade of blue */
+                color: white; /* Set the text color to white */
+                padding: 10px 20px; /* Adjust the padding for button size */
+                border: none; /* Remove the default button border */
+                border-radius: 5px; /* Add rounded corners */
+                cursor: pointer; /* Change the cursor to a pointer on hover */
+            }
+    
+            .red-button {
+                background-color: red;
+                color: white;
+                padding: 10px 20px; /* Adjust the padding for button size */
+                border: none; /* Remove the default button border */
+                border-radius: 5px; /* Add rounded corners */
+                cursor: pointer; /* Change the cursor to a pointer on hover */
+            }
+    
+            
+        </style>
+        <link rel="manifest" href="manifest.json">
+        <script>
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+              .then(registration => {
+                console.log('Service Worker registered with scope:', registration.scope);
+              })
+              .catch(error => {
+                console.error('Service Worker registration failed:', error);
+              });
+          }
+        </script>
+    </head>
+<body>
+    <div class="header">
+        <h1>Akhil Repala</h1>
+        <div class="contact-info">
+            <p>Email: akhilrepala1808@gmail.com<br>Mobile: +1 978-569-7356</p>
+        </div>
+    </div>
+
+        <div class="container">
+        <div class ="h2">
+            <h2>Logged in successfully and Welcome to the site!</h2>
+        </div>
+
+    <br>
+        <button class="colored-button" onclick="fetchDetails()">Other Facts</button>
+        <button class="colored-button" onclick="logout()">Logout</button>
+        <ul id="dataList"></ul>
+
+</div>
+
+    <script>
+        let ipAddress,nearestCity,currency,currentTime,latitude,logitude,temperature;
+        function fetchDetails() {
+    fetch('https://api.ipgeolocation.io/ipgeo?apiKey=c451ae50d47f4016bb0dfa45bf3d3e15')
+        .then(response => response.json())
+        .then(data => {
+            ipAddress = `You are from ${data.state_prov}, ${data.country_name_official}, ${data.continent_name}.`;
+            nearestCity = `${data.city} is the closest city from your location.`;
+            currency = `Your location currency is ${data.currency.name} and its code - ${data.currency.code}.`;
+            currentTime = `Current time in your location is ${data.time_zone.current_time}`;
+            latitude = data.latitude;
+            longitude = data.longitude;
+
+            const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m`;
+
+            fetch(apiUrl)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('Temperature data not available');
+                })
+                .then(data => {
+                    console.log('Temperature Data:', data);
+                    if (data && data.current && data.current.temperature_2m) {
+                        temperature = ` Current temperature of the location is ${data.current.temperature_2m}`;
+                        displayDetails();
+                    }
+                })
+                .catch(error => {
+                    alert(`Error fetching temperature: ${error}`);
+                    window.location.href = 'login.html';
+                });
+        })
+        .catch(error => {
+            alert(`Error fetching facts about user location - ${error}`);
+            window.location.href = 'login.html';
+        });
+}
+
+function displayDetails() {
+    const dataList = document.getElementById('dataList');
+    const sampleData = [ipAddress, nearestCity, currency, temperature, currentTime];
+
+    // Generate the list items dynamically
+    const listItems = sampleData.map(fact => `<li>${fact}</li>`).join('');
+
+    // Set the innerHTML of the dataList element
+    dataList.innerHTML = listItems;
+
+    // Display the dataList
+    dataList.style.display = 'block';
+}
+
+    function logout() {
+            location.href = 'index.html'; // Redirect to the index page
+        }
+    </script>
+</body>
+</html>
