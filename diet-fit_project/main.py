@@ -117,7 +117,7 @@ def home_page():
     return render_template('home.html')
 
 @app.route('/userdetails', methods=['GET'])
-@login_required
+#@login_required
 def user_details():
     #print("default route")
     #response = {'hello': 'world'}

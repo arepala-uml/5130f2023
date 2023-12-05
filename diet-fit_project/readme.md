@@ -33,6 +33,13 @@ source venv/bin/activate
 pip3 install -r requirements.txt
 ```
 
+5. Install docker based on your OS
+
+6. Bring up the mongoDB container using the docker-compose file
+```
+cd ~/5130f2023/diet-fit_project; docker-compose up -d
+```
+
 ## Usage 
 1. change the directory to `~/5130f2023/diet-fit_project`
 ```
