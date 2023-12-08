@@ -1,15 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" >
 <head>
-    <title>Diet Fit</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-        }
-        header {
+  <meta charset="UTF-8">
+  <title>About Us</title>
+  <link rel="stylesheet" href="styles.css">
+<style>
+
+header1 {
             background-color: #4caf9b;
             color: #fff;
             display: flex;
@@ -17,93 +14,90 @@
             align-items: center;
             padding: 20px;
         }
-        h1 {
-            font-size: 32px;
-        }
-        ul1 {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-        li1 {
-            display: inline;
-            margin-right: 20px;
-        }
-        a1 {
-            text-decoration: none;
-            color: #fff;
-        }
-        main {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
-        section {
-            margin-bottom: 20px;
-        }
-        h2 {
-            font-size: 24px;
-        }
-        p {
-            font-size: 18px;
-            line-height: 1.6;
+
+        .flex-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px;
         }
 
-    </style>
+        .flex-item-card {
+            text-align: center;
+            background-color: #F3FFF3;
+            margin: 0.3rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+            padding: 5.5%;
+        }
+
+        .flex-item-card .material-icons.md-48 {
+            font-size: 60px;
+            color: #67ab3a;
+        }
+
+        .flex-item-card .navlink {
+            text-decoration: none;
+            font-size: 35px;
+            font-weight: bold;
+            color: #67ab3a;
+        }
+</style>
 </head>
 <body>
+    <div class="navbar">
+      <a id="brand" href="home.html">DIET-FIT</a>
+      <a href="home.html">Home</a>
+      <a href="aboutus.html">About Us</a>
+
+      <div class="middle">
+          <a href="bmi.html">BMI</a>
+          <a href="dietplan.html">Diet Plan</a>
+          <a href="#">Exercise Plan</a>
+      </div>
+
+      <a href="login.html">Logout</a>
+  </div>
+
     <header>
-        <h1>DIET FIT - Healthy Eating for Good Health</h1>
-        <ul1>
-            <li1><a href="home">HOME</a></li1>
-            <li1><a href="userdetails">USER DETAILS</a></li1>
-            <li1><a href="login">LOGIN</a></li1>
-        </ul1>
-    </header>
-    <main>
-        <section>
-            <h2>The Importance of Food</h2>
-            <p>
-                Food is the fuel that keeps our bodies running. It provides us with the energy and nutrients needed for daily activities, growth, and overall well-being. Eating a balanced diet is crucial for maintaining good health and preventing various diseases.
-            </p>
-        </section>
+      <h1 class="pageHeader">MyDietDiary</h1>
+      <div class="intro flex-container-intro">
+          <div class="flex-item-card-intro">
+              <div class="greetings">
+                  <h1>Hi, Wen Chen!</h1>
+                  <h2>What would you like to do?</h2>
+              </div>
+          </div>
+      </div>
+  </header>
 
-        <section>
-            <h2>Understanding Calories</h2>
-            <p>
-                Calories are a measure of the energy provided by food and beverages. Your body needs a certain number of calories to function properly. Consuming more calories than your body uses can lead to weight gain, while consuming fewer calories can lead to weight loss. It's important to be mindful of your calorie intake and make choices that align with your health and fitness goals.
-            </p>
-        </section>
+  <div class="flex-container padding-nav-cards">
+    <div class="flex-item-card cards-color">
+        <a class="navlink" href="bmi.html">
+            <div>
+                <span class="material-icons md-48 center margin-card-title">calculate</span>
+            </div>
+            <p class="center">Calculate My BMI</p>
+        </a>
+    </div>
 
-        <section>
-            <h2>Eating Healthy</h2>
-            <p>
-                Eating a healthy diet involves consuming a variety of foods that provide essential nutrients such as vitamins, minerals, protein, carbohydrates, and healthy fats. Key principles of a healthy diet include:
-            </p>
-            <ul>
-                <li>Include a variety of fruits and vegetables in your meals.</li>
-                <li>Choose whole grains over refined grains.</li>
-                <li>Opt for lean sources of protein like poultry, fish, beans, and nuts.</li>
-                <li>Limit the intake of added sugars and saturated fats.</li>
-                <li>Stay hydrated by drinking plenty of water.</li>
-            </ul>
-        </section>
+    <div class="flex-item-card cards-color">
+        <a class="navlink" href="dietplan.html">
+            <div>
+                <span class="material-icons md-48 center margin-card-title">edit_calendar</span>
+            </div>
+            <p class="center">View My Diet Plan</p>
+        </a>
+    </div>
 
-        <section>
-            <h2>The Role of Healthy Food in Good Health</h2>
-            <p>
-                Eating a diet rich in healthy foods can:
-            </p>
-            <ul>
-                <li>Support overall health and well-being.</li>
-                <li>Help maintain a healthy weight.</li>
-                <li>Reduce the risk of chronic diseases, such as heart disease and diabetes.</li>
-                <li>Boost the immune system and improve resistance to illness.</li>
-                <li>Promote better digestion and gut health.</li>
-            </ul>
-        </section>
-    </main>
+    <div class="flex-item-card cards-color">
+        <a class="navlink" href="aboutus.html">
+            <div>
+                <span class="material-icons md-48 center margin-card-title">calendar_month</span>
+            </div>
+            <p class="center">View My Exercise Plan</p>
+        </a>
+    </div>
+</div>
+
 </body>
 </html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>7-Day Meal Plan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .meal-plan {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 20px;
+        }
+
+        .day-box {
+            width: calc(33.33% - 20px);
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        h3 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .meal {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="meal-plan" id="mealPlan"></div>
+
+    <script>
+        // Sample data for demonstration
+        const days = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'];
+
+        // Function to generate a random number within a range
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Function to create a meal box
+        function createMealBox(day, mealType) {
+            const box = document.createElement('div');
+            box.classList.add('day-box');
+            
+            const title = document.createElement('h3');
+            title.textContent = `${day} - ${mealType}`;
+            box.appendChild(title);
+
+            // Generate sample meal content (replace with actual data)
+            const meal = document.createElement('div');
+            meal.classList.add('meal');
+            meal.textContent = `Food: Sample Food`;
+            box.appendChild(meal);
+
+            const calories = document.createElement('div');
+            calories.classList.add('meal');
+            calories.textContent = `Calories: ${getRandomInt(300, 800)}`;
+            box.appendChild(calories);
+
+            const protein = document.createElement('div');
+            protein.classList.add('meal');
+            protein.textContent = `Protein: ${getRandomInt(10, 30)}g`;
+            box.appendChild(protein);
+
+            const fat = document.createElement('div');
+            fat.classList.add('meal');
+            fat.textContent = `Fat: ${getRandomInt(5, 20)}g`;
+            box.appendChild(fat);
+
+            return box;
+        }
+
+        // Function to generate the 7-day meal plan
+        function generateMealPlan() {
+            const mealPlanContainer = document.getElementById('mealPlan');
+
+            days.forEach(day => {
+                // Create breakfast, lunch, and dinner boxes for each day
+                const breakfastBox = createMealBox(day, 'Breakfast');
+                const lunchBox = createMealBox(day, 'Lunch');
+                const dinnerBox = createMealBox(day, 'Dinner');
+
+                // Append the meal boxes to the meal plan container
+                mealPlanContainer.appendChild(breakfastBox);
+                mealPlanContainer.appendChild(lunchBox);
+                mealPlanContainer.appendChild(dinnerBox);
+            });
+        }
+
+        // Call the function to generate the meal plan
+        generateMealPlan();
+    </script>
+</body>
+</html>

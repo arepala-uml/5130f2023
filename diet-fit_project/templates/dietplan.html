@@ -1,211 +1,721 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <!-- Your existing head content -->
-</head>
-<body>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diet Fit</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Diet Plan</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+        /* body {
             margin: 0;
             padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #b1dcc3f4;;
+        } */
+
+        .box {
+            display: flex;
+            width: 1370px;
+            max-width: 100%;
+            height: 700px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin: 0 auto;
         }
-        header {
-            background-color: #4caf9b;
+
+        .column {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .column:first-child {
+            background-color: black;
+            flex: 0 0 200px;
             color: #fff;
+        }
+
+        .column:nth-child(2) {
+            background-color: white;
+            width: 1000px;
+            color: black;
+            overflow-y: auto;
+        }
+
+        .column:last-child {
+            border-left: 1px solid #e0e0e0;
+            padding: 20px;
+            flex: 0 0 350px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column; 
+        }
+
+        .column h3 {
+            font-size: 18px;
+        }
+
+        .column a {
+            display: block;
+            margin: 10px 0;
+            color: #67ab3a;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .selectable-cell {
+            border: 1px solid #e0e0e0;
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .selected-meals {
+            text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .selected-meals p {
+            margin: 5px 0;
+            border: 1px solid #e0e0e0;
+            padding: 5px;
+            position: relative;
+        }
+
+        .delete-button {
+            color: #ff0000;
+            cursor: pointer;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        .selected {
+            background-color: #67ab3a;
+            color: #fff;
+        }
+
+        .highlight {
+            background-color: #ffcccb;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .clickable-icon {
+            cursor: pointer;
+        }
+
+        .category-section {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+            max-height: 2000px; /* Adjust the height as needed */
+            overflow-y: auto;
+        }
+
+        .selectable-cell:hover {
+            background-color: #f0f0f0;
+        }
+
+        .selectable-cell.selected-cell {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        #third-column .selected-cell {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px;
-        }
-        h1 {
-            font-size: 32px;
-        }
-        ul1 {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-        li1 {
-            display: inline;
-            margin-right: 20px;
-        }
-        a1 {
-            text-decoration: none;
-            color: #fff;
-        }
-        main {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
-        section {
-            margin-bottom: 20px;
-        }
-        h2 {
-            font-size: 24px;
-        }
-        p {
-            font-size: 18px;
-            line-height: 1.6;
-        }
-        .container {
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        .colored-button {
-            background-color: #378e74; /* Set the background color to a shade of blue */
-            color: white; /* Set the text color to white */
-            padding: 10px 20px; /* Adjust the padding for button size */
-            border: none; /* Remove the default button border */
-            border-radius: 5px; /* Add rounded corners */
-            cursor: pointer; /* Change the cursor to a pointer on hover */
-        }
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-top: 20px;
         }
 
-        th, td {
-            border: 1px solid #4caf9b;
-            padding: 8px;
-            text-align: left;
+        .row-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px; /* Adjust the gap between cells as needed */
+        }
+        .search-button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 100px;
+            cursor: pointer;
+            margin-top: 10px;
         }
 
-        th {
-            background-color: #4caf9b;
-        }
+            .navbar {
+        background-color: #8bdcadf4; /* Set a nice navbar color */
+        overflow: hidden;
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+    }
+
+    .navbar a {
+        color: black;
+        text-decoration: none;
+        font-size: 17px;
+        padding: 10px;
+    }
+
+    .navbar a:hover {
+        background-color: white; /* Change background color on hover */
+    }
+
+    .navbar #brand {
+        font-weight: bold;
+    }
+
+    .navbar .middle {
+        margin: auto;
+    }
+    .meal-plan {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin: 20px;
+    }
+
+    .day-box {
+        width: calc(33.33% - 20px);
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        margin: 10px;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+    .meal {
+        margin-bottom: 10px;
+    }
+    .calories-input-container {
+    display: flex;
+    gap: 10px;
+    }
+
+    .cal-input {
+    padding: 5px;
+    width: 80px; /* Adjust the width as needed */
+    }
+
+    .calorie-range-cell {
+    background-color: #4caf50;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+    display: flex;
+    justify-content: space-between;
+    }
+
+    .calorie-range-cell .remove-button {
+    cursor: pointer;
+    }
     </style>
+</head>
 
-<header>
-    <h1>DIET FIT - Healthy Eating for Good Health</h1>
-    <ul1>
-        <li1><a href="home">HOME</a></li1>
-        <li1><a href="userdetails">USER DETAILS</a></li1>
-        <li1><a href="login">LOGIN</a></li1>
-    </ul1>
-</header>
-    <div class="container">
-        <div class="h2">
-            <h2>User Information for Diet Plan:</h2>
+<body>
+    <div class="navbar">
+        <a id="brand" href="home.html">DIET-FIT</a>
+        <a href="home.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+  
+        <div class="middle">
+            <a href="bmi.html">BMI</a>
+            <a href="#">Diet Plan</a>
+            <a href="#">Exercise Plan</a>
+        </div>
+  
+        <a href="login.html">Logout</a>
+    </div>
+    <!-- <header>
+        <h1 class="pageHeader">MyDietDiary</h1>
+        <div class="intro flex-container-intro">
+            <div class="flex-item-card-intro">
+                <div class="greetings">
+                    <h1>Hi, Wen Chen!</h1>
+                    <h2>DIET PLAN</h2>
+                </div>
+            </div>
+        </div>
+    </header> -->
+    <br>
+    <br>
+
+    <div class="box">
+        <div class="column">
+            <h2>Set filters for all meals</h2>
+            <div class="clickable-icon" onclick="showData('Allergies')">Allergies</div>
+            <br>
+            <div class="clickable-icon" onclick="showData('Diet')">Diet</div>
+            <br>
+            <div class="clickable-icon" onclick="showDataCalories('Calories')">Calories</div>
+            <br>
+
+            <h2>Set your meals</h2>
+            <div class="clickable-icon" onclick="showData('Breakfast')">Breakfast</div>
+            <br>
+            <div class="clickable-icon" onclick="showData('Lunch')">Lunch</div>
+            <br>
+            <div class="clickable-icon" onclick="showData('Dinner')">Dinner</div>
         </div>
 
-        <form id="dietPlanForm" method="post" enctype="multipart/form-data">
-            <label for="Age">Age:</label>
-            <input type="text" id="age" name="age" value="{{ user_data.age }}" readonly><br><br>
+        <div class="column" id="second-column">
+          </div>
 
-            <label for="Height">Height:</label>
-            <input type="text" id="height" name="height" value="{{ user_data.height }}" readonly><br><br>
-
-            <label for="Weight">Weight:</label>
-            <input type="text" id="weight" name="weight" value="{{ user_data.weight }}" readonly><br><br>
-
-            <label for="Gender">Gender:</label>
-            <input type="text" id="gender" name="gender" value="{{ user_data.gender }}" readonly><br><br>
-
-            <!-- Add more fields for additional information in the diet plan -->
-
-            <label for="cuisine">Select Your Preferred Cuisine:</label>
-        <select id="cuisine" name="cuisine">
-            <option value="indian">Indian</option>
-            <option value="mexican">Mexican</option>
-            <option value="other">Other</option>
-        </select>
-
-        <br>
-        <br>
-
-        <label for="dietType">Select Your Diet Type:</label>
-        <input type="radio" id="vegetarian" name="dietType" value="vegetarian">
-        <label for="vegetarian">Vegetarian</label>
-        <input type="radio" id="nonVegetarian" name="dietType" value="nonVegetarian">
-        <label for="nonVegetarian">Non-Vegetarian</label>
-
-        <br>
-        <br>
-
-        <label for="allergies">Any Food Allergies:</label>
-        <input type="text" id="allergies" name="allergies">
-
-        <br>
-        <br>
-
-        <label for="exercise">Select Your Preferred Exercise:</label>
-        <select id="exercise" name="exercise">
-            <option value="cardio">Cardio Workouts</option>
-            <option value="badminton">Badminton</option>
-            <option value="yoga">Yoga Sessions</option>
-        </select>
-
-        <br>
-        <br>
-
-        <button type="button" onclick="generateDietPlan()">Generate Diet Plan</button>
-        </form>
-        <br>
-        <br>
-        <div id="dietPlanContainer"></div>
+        <div class="column" id="third-column1">
+            <div id="third-column"></divid> For all meals</div>
+            <br>
+            <div id="breakfast-column">Breakfast</div>
+            <br>
+            <div id="lunch-column">Lunch</div>
+            <br>
+            <div id="dinner-column">Dinner</div>
+            <br>
+            <button class="search-button" onclick=generateMealPlan()>SEARCH</button>
+          </div>
     </div>
-
-    <!-- Your existing script content -->
+<br>
+    <div id="meal-plan-name">></div>
+    <div class="meal-plan" id="mealPlan"></div>
 
     <script>
-        function generateDietPlan() {
-            // Get user preferences
-            const cuisine = document.getElementById('cuisine').value;
-            const dietType = document.querySelector('input[name="dietType"]:checked').value;
-            const allergies = document.getElementById('allergies').value;
-            const exercise = document.getElementById('exercise').value;
+    var selectedItems = [];
+    console.log(selectedItems)
+    var days = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'];
+    var allergyData=['Celery-free', 'Crustacean-free', 'Dairy-free', 'Egg-free', 'Fish-free', 
+            'Gluten-free', 'Lupine-free', 'Mustard-free', 'Peanut-free', 'Sesame-free','Soy-free',
+        'Tree-Nut-free', 'Wheat-free','FODMAP-Free','Immuno-Supportive' ]
+    var dietData=['Alcohol-free','Balanced','DASH','High-Fiber','High-Protein','Keto','Kidney friendly'
+            ,'Kosher','Low-Carb','Low-Fat','Low potassium','Low-Sodium','Mediterranean','No oil added',
+            'No-sugar','Paleo','Pescatarian','Pork-free','Red meat-free','Sugar-conscious','Vegan',
+            'Vegetarian','Mollusk-Free','Sulfite-Free']
+    var foodData =['Alcohol cocktail','Biscuits and cookies','Bread','Cereals','Condiments and sauces'
+,'Desserts','Drinks','Egg','Ice cream and custard','Main course','Pancake','Pasta','Pastry','Pies and tarts'
+,'Pizza','Preps','Preserve','Salad','Sandwiches','Seafood','Side dish','Soup','Special occasions'
+,'Starter','Sweets']
 
-            // Simulate BMI calculation (replace this with actual BMI calculation logic)
-            const bmi = 25;
+function showDataCalories(category) {
+    const secondColumn = document.getElementById('second-column');
+    secondColumn.innerHTML = `<strong style="text-align: center; display: block; margin-bottom: 10px;">${category}</strong>`;
 
-            // Generate a sample diet plan (replace this with actual diet plan generation logic)
-            const dietPlan = [
-                { day: 'Day 1', breakfast: 'Oats', lunch: 'Grilled Chicken Salad', dinner: 'Vegetable Stir-Fry' },
-                { day: 'Day 2', breakfast: 'Fruit Smoothie', lunch: 'Quinoa Bowl', dinner: 'Salmon with Broccoli' },
-                // Add more days and meals as needed
-            ];
+    const caloriesContent = `
+      <div class="card-body">
+        <h2>Daily Budget</h2>
+        <div class="desc cal">Enter your preferred min/max values for calories.</div>
+        <br>
+        <div class="calories-input-container">
+          <input type="text" class="cal-input" placeholder="Min" id="minCalInput">
+          <input type="text" class="cal-input" placeholder="Max" id="maxCalInput">
+          <span class="kcal-text">kcal</span>
+          <button onclick="applyCalorieRange()">Apply</button>
+        </div>
+        <div class="mdesc-cal" id="calorieRangeDisplay"></div>
+      </div>`;
 
-            // Display the diet plan in a table
-            const dietPlanContainer = document.getElementById('dietPlanContainer');
-            dietPlanContainer.innerHTML = '<h2>Your 30-Day Diet Plan</h2>';
-            const table = document.createElement('table');
-            const headerRow = table.insertRow(0);
-            const header1 = headerRow.insertCell(0);
-            const header2 = headerRow.insertCell(1);
-            const header3 = headerRow.insertCell(2);
-            const header4 = headerRow.insertCell(3);
-            header1.innerHTML = '<b>Day</b>';
-            header2.innerHTML = '<b>Breakfast</b>';
-            header3.innerHTML = '<b>Lunch</b>';
-            header4.innerHTML = '<b>Dinner</b>';
+    secondColumn.innerHTML += caloriesContent;
+}
 
-            for (let i = 0; i < dietPlan.length; i++) {
-                const row = table.insertRow(i + 1);
-                const cell1 = row.insertCell(0);
-                const cell2 = row.insertCell(1);
-                const cell3 = row.insertCell(2);
-                const cell4 = row.insertCell(3);
-                cell1.innerHTML = dietPlan[i].day;
-                cell2.innerHTML = dietPlan[i].breakfast;
-                cell3.innerHTML = dietPlan[i].lunch;
-                cell4.innerHTML = dietPlan[i].dinner;
-            }
+function applyCalorieRange() {
+    const thirdColumn = document.getElementById('third-column');
+    const minCalInput = document.getElementById('minCalInput');
+    const maxCalInput = document.getElementById('maxCalInput');
+    const calorieRangeDisplay = document.getElementById('calorieRangeDisplay');
 
-            dietPlanContainer.appendChild(table);
+    const minCal = minCalInput.value.trim();
+    const maxCal = maxCalInput.value.trim();
+
+    if (minCal !== '' && maxCal !== '' && !isNaN(minCal) && !isNaN(maxCal)) {
+        const calorieRange = `${minCal}-${maxCal}kcal`;
+        const calorieRangeCell = document.createElement('div');
+        calorieRangeCell.classList.add('calorie-range-cell', 'selectable-cell', 'selected-cell');
+        calorieRangeCell.innerHTML = calorieRange;
+
+        // Add an "X" button for removal
+        const removeButton = document.createElement('span');
+        removeButton.classList.add('remove-button');
+        removeButton.innerHTML = ' X';
+        removeButton.onclick = () => removeCalorieRange(calorieRange,calorieRangeCell);
+        calorieRangeCell.appendChild(removeButton);
+        thirdColumn.appendChild(calorieRangeCell);
+        addItemToSelection("calories", calorieRange);
+    } else {
+        alert('Please enter valid minimum and maximum calorie values.');
+    }
+}
+
+function removeCalorieRange(calorieRange,cell) {
+    const thirdColumn = document.getElementById('third-column');
+    thirdColumn.removeChild(cell);
+    removeItemFromSelection("calories", calorieRange);
+}
+
+// function showDataCalories(category){
+//         const secondColumn = document.getElementById('second-column');
+//         secondColumn.innerHTML = `<strong>${category}</strong>`;
+//         const caloriesContent = `
+//       <div class="card-body">
+//         <h2>Daily Budget</h2>
+//         <div class="desc cal">Default value is selected based on a min 1600 and max 2000 calorie diet. Please enter your preferred min/max values.</div>
+//         <!--input type="text" class="search cal"/> kcal -->
+//         <div class="mdesc-cal">
+//           <div class="range-slider">
+//             <span class="mdescs">min <input type="text" value="1000" class="search nut min"> max <input type="text" value="2000" class="search nut max"> kcal</span>
+//           </div>
+//           <div class="range-check cal-check check-contain">
+//             <label class="checkbox-button">
+//               <input type="checkbox" class="nutrient-check checkbox-button__input" value="calories" data-measure="kcal">
+//               <span class="checkbox-button__control"></span>						
+//             </label>
+//           </div>
+//         </div>
+//       </div>`;
+
+//       secondColumn.innerHTML += caloriesContent;
+
+// }
+
+function showData(category) {
+  let data = Array.from({ length: 10 }, (_, index) => `${category} Item ${index + 1}`);
+
+  // Customize data based on the category
+  if (category === "Allergies") {
+    data = allergyData;
+  } else if (category === "Diet") {
+    data = dietData;
+  } else if (category === "Breakfast" || category === "Lunch" || category === "Dinner") {
+    data = foodData;
+  }
+
+  // Display the data in the second column
+  const secondColumn = document.getElementById('second-column');
+  secondColumn.innerHTML = `<strong style="text-align: center; display: block; margin-bottom: 10px;">${category}</strong>`;
+  const categorySection = document.createElement('div');
+  categorySection.classList.add('category-section');
+
+  data.forEach((item, index) => {
+    const cell = document.createElement('div');
+    cell.classList.add('selectable-cell');
+    cell.setAttribute('data-category', category);
+    cell.setAttribute('data-item', item);
+    cell.innerHTML = item;
+    if (isItemSelected(category, item)) {
+        cell.classList.add('selected-cell');
+    }
+    cell.onclick = () => toggleSelectCell(cell, category, item);
+    categorySection.appendChild(cell);
+  });
+
+  secondColumn.appendChild(categorySection);
+}
+
+function toggleSelectCell(cell, category, item) {
+  const isSelected = cell.classList.contains('selected-cell');
+
+  if (isSelected) {
+    cell.classList.remove('selected-cell');
+    removeItemFromSelection(category, item);
+    removeSelectedItemFromThirdColumn(category, item);
+  } else {
+    cell.classList.add('selected-cell');
+    addItemToSelection(category, item);
+    addSelectedItemToThirdColumn(category, item,cell);
+  }
+}
+
+function addItemToSelection(category, item) {
+  // Check if the item is not already selected
+  const isAlreadySelected = selectedItems.some(
+    (selectedItem) => selectedItem.category === category && selectedItem.item === item
+  );
+  if (!isAlreadySelected) {
+    selectedItems.push({ category, item });
+  }
+}
+
+function removeItemFromSelection(category, item) {
+  selectedItems = selectedItems.filter(
+    (selectedItem) => !(selectedItem.category === category && selectedItem.item === item)
+  );
+  console.log(selectedItems)
+}
+
+function addSelectedItemToThirdColumn(category, item,cell) {
+    const selectedCell = document.createElement('div');
+    selectedCell.classList.add('selectable-cell', 'selected-cell');
+    selectedCell.setAttribute('data-category', category);
+    selectedCell.setAttribute('data-item', item);
+    selectedCell.innerHTML = `${category}: ${item}`;
+    if (category == "Breakfast"){
+        columnName = "breakfast-column";
+        selectedCell.innerHTML = `${item}`;
+    }else if (category == "Lunch"){
+        columnName = "lunch-column";
+        selectedCell.innerHTML = `${item}`;
+    }else if (category == "Dinner"){
+        columnName = "dinner-column";
+        selectedCell.innerHTML = `${item}`;
+    }else{
+        columnName = "third-column";
+    }
+    const thirdColumn = document.getElementById(columnName);
+
+    // Add an "X" button for removal
+    const removeButton = document.createElement('span');
+    removeButton.classList.add('remove-button');
+    removeButton.innerHTML = ' X';
+    removeButton.onclick = () => removeSelectedItemFromThirdColumn(category, item,selectedCell);
+    //removeButton.onclick = () => removeCell(selectedCell,category, item,cell);
+    selectedCell.appendChild(removeButton);
+
+    thirdColumn.appendChild(selectedCell);
+}
+
+function removeSelectedItemFromThirdColumn(category, item) {
+    if (category == "Breakfast"){
+        columnName = "breakfast-column";
+    }else if (category == "Lunch"){
+        columnName = "lunch-column";
+    }else if (category == "Dinner"){
+        columnName = "dinner-column";
+    }else{
+        columnName = "third-column";
+    }
+  const thirdColumn = document.getElementById(columnName);
+  const selectedCell = thirdColumn.querySelector(`[data-category="${category}"][data-item="${item}"]`);
+  if (selectedCell) {
+    thirdColumn.removeChild(selectedCell);
+    removeItemFromSelection(category, item);
+
+    // Update the highlight in the second column
+    const secondColumn = document.getElementById('second-column');
+    const cell = secondColumn.querySelector(`.selectable-cell[data-category="${category}"][data-item="${item}"]`);
+    if (cell) {
+      cell.classList.remove('selected-cell');
+    }
+  }
+}
+
+document.getElementById('third-column').addEventListener('click', (event) => {
+  if (event.target.classList.contains('remove-button')) {
+    const selectedCell = event.target.parentElement;
+    const category = selectedCell.getAttribute('data-category');
+    const item = selectedCell.getAttribute('data-item');
+
+    removeSelectedItemFromThirdColumn(category, item);
+  }
+});
+
+document.getElementById('breakfast-column').addEventListener('click', (event) => {
+  if (event.target.classList.contains('remove-button')) {
+    const selectedCell = event.target.parentElement;
+    const category = selectedCell.getAttribute('data-category');
+    const item = selectedCell.getAttribute('data-item');
+
+    removeSelectedItemFromThirdColumn(category, item);
+  }
+});
+
+document.getElementById('lunch-column').addEventListener('click', (event) => {
+  if (event.target.classList.contains('remove-button')) {
+    const selectedCell = event.target.parentElement;
+    const category = selectedCell.getAttribute('data-category');
+    const item = selectedCell.getAttribute('data-item');
+
+    removeSelectedItemFromThirdColumn(category, item);
+  }
+});
+
+document.getElementById('dinner-column').addEventListener('click', (event) => {
+  if (event.target.classList.contains('remove-button')) {
+    const selectedCell = event.target.parentElement;
+    const category = selectedCell.getAttribute('data-category');
+    const item = selectedCell.getAttribute('data-item');
+
+    removeSelectedItemFromThirdColumn(category, item);
+  }
+});
+
+function isItemSelected(category, item) {
+    for (let i = 0; i < selectedItems.length; i++) {
+        const selectedItem = selectedItems[i];
+        if (selectedItem.category === category && selectedItem.item === item) {
+            return true; // Item is present in the list
         }
+    }
+    return false; // Item is not present in the list
+}
+
+function selectCell(category, item) {
+      // Add the selected item to the corresponding section in the third column
+      const thirdColumn = document.getElementById('third-column');
+      const selectedCell = document.createElement('div');
+      selectedCell.classList.add('selectable-cell', 'selected-cell');
+      selectedCell.innerHTML = `${category}: ${item}`;
+
+      // Add a remove button to allow removing the selected item
+      const removeButton = document.createElement('span');
+      removeButton.classList.add('remove-button');
+      removeButton.innerHTML = ' Remove';
+      removeButton.onclick = () => removeCell(selectedCell);
+      selectedCell.appendChild(removeButton);
+
+      thirdColumn.appendChild(selectedCell);
+}
+
+function removeCell(selectedCell,category,item,cell) {
+      removeItemFromSelection(category,item)
+      const secondColumn = document.getElementById('second-column');
+      cell.classList.remove('selected-cell');
+      const thirdColumn = document.getElementById('third-column');
+      thirdColumn.removeChild(selectedCell);
+}
+
+function selectItem(element, itemName) {
+    if (!selectedItems.includes(itemName)) {
+        // Highlight in second column
+        //element.classList.add('highlight');
+        // Add to selected list
+        selectedItems.push(itemName);
+        // Display in the third column
+        displaySelectedItems();
+    }
+}
+
+function showAllergyItems() {
+    var allergiesColumn = document.getElementById('allergiesColumn');
+    allergiesColumn.innerHTML = ''; // Clear existing content
+
+    // Add allergy items to the middle column
+    var allergyItems = ['Celery-free', 'Crustacean-free', 'Dairy-free', 'Egg-free', 'Fish-free', 'Gluten-free', 'Lupine-free', 'Mustard-free', 'Peanut-free', 'Sesame-free', 'Shellfish-free', 'Soy-free', 'Tree-Nut-free', 'Wheat-free', 'Sesame-free', 'Immuno-Supportive'];
+    allergyItems.forEach(function (item) {
+        allergiesColumn.innerHTML += '<div class="selectable-cell" onclick="selectItem(this, \'' + item + '\')">' + item + '</div>';
+    });
+}
+
+function displaySelectedItems() {
+    var selectedMealsDiv = document.getElementById("selectedMeals");
+    selectedMealsDiv.innerHTML = '';
+    selectedItems.forEach(function (item) {
+        selectedMealsDiv.innerHTML += '<p class="selected">' + item +
+            ' <span class="delete-button" onclick="deleteItem(\'' + item + '\')"> ❌</span></p>';
+    });
+
+    // Deselect the element in the second column
+    var allergiesColumn = document.getElementById("allergiesColumn");
+    var selectableCells = allergiesColumn.getElementsByClassName("selectable-cell");
+    for (var i = 0; i < selectableCells.length; i++) {
+        if (selectableCells[i].innerText.trim() === item) {
+            selectableCells[i].classList.remove('highlight');
+            break;
+        }
+    }
+}
+
+function deleteItem(itemName) {
+    // Remove from the selected list
+    var index = selectedItems.indexOf(itemName);
+    if (index !== -1) {
+        selectedItems.splice(index, 1);
+    }
+
+    // Display updated list in the third column and deselect in the second column
+    displaySelectedItems();
+}
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Function to create a meal box
+function createMealBox(day, mealType) {
+    const box = document.createElement('div');
+    box.classList.add('day-box');
+    
+    const title = document.createElement('h3');
+    title.textContent = `${day} - ${mealType}`;
+    box.appendChild(title);
+
+    // Generate sample meal content (replace with actual data)
+    const meal = document.createElement('div');
+    meal.classList.add('meal');
+    meal.textContent = `Food: Sample Food`;
+    box.appendChild(meal);
+
+    const calories = document.createElement('div');
+    calories.classList.add('meal');
+    calories.textContent = `Calories: ${getRandomInt(300, 800)}`;
+    box.appendChild(calories);
+
+    const protein = document.createElement('div');
+    protein.classList.add('meal');
+    protein.textContent = `Protein: ${getRandomInt(10, 30)}g`;
+    box.appendChild(protein);
+
+    const fat = document.createElement('div');
+    fat.classList.add('meal');
+    fat.textContent = `Fat: ${getRandomInt(5, 20)}g`;
+    box.appendChild(fat);
+
+    return box;
+}
+
+function generateMealPlan() {
+    const mealPlanContainer = document.getElementById('mealPlan');
+    const mealPlanNameText = "Your Daily Meal Planner";
+    const mealPlanNameElement = document.getElementById('meal-plan-name');
+    //mealPlanNameElement.appendChild(document.createElement('br'));
+    //mealPlanNameElement.appendChild(document.createTextNode(mealPlanNameText));
+   mealPlanNameElement.textContent = mealPlanNameText;
+    mealPlanNameElement.style.textAlign = 'center';
+    mealPlanNameElement.style.margin = '0 auto';
+    mealPlanNameElement.style.fontSize = '24px'; 
+
+
+    days.forEach(day => {
+        // Create breakfast, lunch, and dinner boxes for each day
+        const breakfastBox = createMealBox(day, 'Breakfast');
+        const lunchBox = createMealBox(day, 'Lunch');
+        const dinnerBox = createMealBox(day, 'Dinner');
+        const dayContainer = document.createElement('div');
+        dayContainer.classList.add('day-container');
+
+        // Add day number to the container
+        const dayNumber = document.createElement('h4');
+        dayNumber.textContent = `${day}`;
+        dayContainer.appendChild(dayNumber);
+
+        // Append the meal boxes to the meal plan container
+        //mealPlanContainer.appendChild(dayContainer)
+
+            mealPlanContainer.appendChild(breakfastBox);
+            mealPlanContainer.appendChild(lunchBox);
+            mealPlanContainer.appendChild(dinnerBox);
+    });
+}
+
+window.addEventListener('load', function () {
+            // Show the 'Allergies' section when the window is loaded
+            showData('Allergies');
+});
     </script>
 </body>
 
