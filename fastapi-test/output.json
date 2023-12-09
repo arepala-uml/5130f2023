@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Standing Biceps Stretch",
+    "type": "stretching",
+    "muscle": "biceps",
+    "equipment": "other",
+    "difficulty": "beginner",
+    "instructions": "Clasp your hands behind your back with your palms together, straighten arms and then rotate them so your palms face downward. Raise your arms up and hold until you feel a stretch in your biceps."
+  },
+  {
+    "name": "Seated Biceps",
+    "type": "stretching",
+    "muscle": "biceps",
+    "equipment": "body_only",
+    "difficulty": "beginner",
+    "instructions": "Sit on the floor with your knees bent and your partner standing behind you. Extend your arms straight behind you with your palms facing each other. Your partner will hold your wrists for you. This will be the starting position. Attempt to flex your elbows, while your partner prevents any actual movement. After 10-20 seconds, relax your arms while your partner gently pulls your wrists up to stretch your biceps. Be sure to let your partner know when the stretch is appropriate to prevent injury or overstretching."
+  },
+  {
+    "name": "Brachialis SMR",
+    "type": "stretching",
+    "muscle": "biceps",
+    "equipment": "foam_roll",
+    "difficulty": "beginner",
+    "instructions": "Lie on your side, with your upper arm against the foam roller. The upper arm should be more or less aligned with your body, with the outside of the bicep pressed against the foam roller. Raise your hips off of the floor, supporting your weight on your arm and on your feet. Hold for 10-30 seconds, and then switch sides."
+  },
+  {
+    "name": "Brachialis SMR",
+    "type": "stretching",
+    "muscle": "biceps",
+    "equipment": "foam_roll",
+    "difficulty": "beginner",
+    "instructions": "Lie on your side, with your upper arm against the foam roller. The upper arm should be more or less aligned with your body, with the outside of the bicep pressed against the foam roller. Raise your hips off of the floor, supporting your weight on your arm and on your feet. Hold for 10-30 seconds, and then switch sides."
+  },
+  {
+    "name": "Brachialis SMR",
+    "type": "stretching",
+    "muscle": "biceps",
+    "equipment": "foam_roll",
+    "difficulty": "beginner",
+    "instructions": "Lie on your side, with your upper arm against the foam roller. The upper arm should be more or less aligned with your body, with the outside of the bicep pressed against the foam roller. Raise your hips off of the floor, supporting your weight on your arm and on your feet. Hold for 10-30 seconds, and then switch sides."
+  },
+  {
+    "name": "Brachialis SMR",
+    "type": "stretching",
+    "muscle": "biceps",
+    "equipment": "foam_roll",
+    "difficulty": "beginner",
+    "instructions": "Lie on your side, with your upper arm against the foam roller. The upper arm should be more or less aligned with your body, with the outside of the bicep pressed against the foam roller. Raise your hips off of the floor, supporting your weight on your arm and on your feet. Hold for 10-30 seconds, and then switch sides."
+  }
+]

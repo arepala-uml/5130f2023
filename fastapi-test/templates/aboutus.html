@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>About Us</title>
+  <link rel="stylesheet" href="static/styles.css">
+<style>
+nav {
+
+display: flex;
+
+justify-content: space-around;
+
+align-items: center;
+
+min-height: 8vh;
+
+background-color: teal;
+
+font-family: "Montserrat", sans-serif;
+
+}
+
+.heading {
+
+color: white;
+
+text-transform: uppercase;
+
+letter-spacing: 5px;
+
+font-size: 20px;
+
+}
+
+.nav-links {
+
+display: flex;
+
+justify-content: space-around;
+
+width: 30%;
+
+}
+
+.nav-links li {
+
+list-style: none;
+
+}
+
+.nav-links a {
+
+color: white;
+
+text-decoration: none;
+
+letter-spacing: 3px;
+
+font-weight: bold;
+
+font-size: 14px;
+
+padding: 14px 16px;
+
+}
+
+.nav-links a:hover:not(.active) {
+
+background-color: lightseagreen;
+
+}
+
+.nav-links li a.active {
+
+background-color: #4caf50;
+
+}
+
+header1 {
+            background-color: #4caf9b;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+</style>
+</head>
+<body>
+
+    <div class="navbar">
+        <a id="brand" href="home">DIET-FIT</a>
+        <a href="home">Home</a>
+        <a href="about">About Us</a>
+  
+        <div class="middle">
+            <a href="bmi">BMI</a>
+            <a href="dietplan">Diet Plan</a>
+            <a href="exerciseplan">Exercise Plan</a>
+        </div>
+  
+        <a href="login">Logout</a>
+    </div>
+
+    <div>
+        <div class="about-section">
+          <h1>About Us</h1>
+          <div class='about-p'>
+            <p> Hello! We are a group of students taking INFO 340 (Client-Side Development), and MyDietDiary is our team project. </p>
+            <p> Our group decided to focus on tracking BMI data and diet plans because we noticed that people's eating </p>
+            <p> habits in modern days lack specific categories of food, with mostly only fat, starch, and sugar for a meal. </p>
+            <p> Busy schedules also lead to people eating on the run, which results in poor nutritional intake. </p>
+            <p> We hope MyDietDiary will help users achieve a healthier lifestyle by monitoring BMI results </p>
+            <p> and tracking daily food intake. </p>
+          </div>
+        </div>
+  
+        <br>
+        <br>
+        <div class="feature-section">
+          <div class="row">
+            <div class="column">
+              <div class="card">
+                <div class="container">
+                  <h2>Feature 1 - Calculate BMI & Calorie Intake</h2>
+                  <p>You can calculate your BMI and Calorie intake by providing your weight, height, age and gender. </p>
+                </div>
+              </div>
+            </div>
+
+  
+            <div class="column">
+              <div class="card">
+                <div class="container">
+                  <h2>Feature 2 - View Diet Plan</h2>
+                  <p>You can add the food items into your diet plan with a date. </p>
+                  <p>The search food and filter food catogery functions can help you.</p>
+                  
+                </div>
+              </div>
+            </div>
+  
+            <div class="column">
+              <div class="card">
+                <div class="container">
+                  <h2>Feature 3 - View Exercise Plan</h2>
+                  <p>You can view your added food items based on selected date. </p>
+                  <p>All information regarding the food items will be displayed.</p>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+  
+        <div class="team-section">
+          <h2>Our Team</h2>
+          <div class="row">
+  
+            <div class="column">
+              <div class="card">
+                <img src="static/images/jeffreyqiu.jpg" alt="Wen Chen" class="about-member-img"></img>
+                <div class="container">
+                  <h2>Wen Chen</h2>
+                  <p class="title">Team Leader</p>
+                  <p>Junior - Informatics</p>
+                </div>
+              </div>
+            </div>
+  
+            <div class="column">
+              <div class="card">
+                <img src="static/images/jeffreyqiu.jpg" alt="Kelly Wang" class="about-member-img"></img>
+                <div class="container">
+                  <h2>Kelly Wang</h2>
+                  <p class="title">Web Developer</p>
+                  <p>Junior - Informatics</p>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+  
+</body>
+</html>
