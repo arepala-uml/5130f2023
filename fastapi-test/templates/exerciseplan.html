@@ -21,7 +21,7 @@
             display: flex;
             width: 1370px;
             max-width: 100%;
-            height: 700px;
+            height: 640px;
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -36,7 +36,7 @@
 
         .column:first-child {
             background-color: black;
-            flex: 0 0 200px;
+            flex: 0 0 350px;
             color: #fff;
         }
 
@@ -254,24 +254,13 @@
         </div>
   
         <a href="login">Logout</a>
-      </div>
-    <!-- <header>
-        <h1 class="pageHeader">MyDietDiary</h1>
-        <div class="intro flex-container-intro">
-            <div class="flex-item-card-intro">
-                <div class="greetings">
-                    <h1>Hi, Wen Chen!</h1>
-                    <h2>DIET PLAN</h2>
-                </div>
-            </div>
-        </div>
-    </header> -->
+    </div>
     <br>
     <br>
 
     <div class="box">
         <div class="column">
-            <h2>Set filters for all meals</h2>
+            <h2>Select the exercise type</h2>
             <div class="clickable-icon" onclick="showData('Allergies')">Allergies</div>
             <br>
             <div class="clickable-icon" onclick="showData('Diet')">Diet</div>
@@ -301,7 +290,7 @@
             <br>
             <!-- <button class="search-button" onclick=generateMealPlan()>SEARCH</button> -->
             <button class ="colored-button" onclick="generateMealPlan(event)">SEARCH</button>
-          </div>
+        </div>
     </div>
 <br>
     <div id="meal-plan-name">></div>
@@ -311,17 +300,11 @@
     var selectedItems = [];
     console.log(selectedItems)
     var days = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'];
-    var allergyData=['Celery-free', 'Crustacean-free', 'Dairy-free', 'Egg-free', 'Fish-free', 
-            'Gluten-free', 'Lupine-free', 'Mustard-free', 'Peanut-free', 'Sesame-free','Soy-free',
-        'Tree-Nut-free', 'Wheat-free','FODMAP-Free','Immuno-Supportive' ]
-    var dietData=['Alcohol-free','Balanced','DASH','High-Fiber','High-Protein','Keto','Kidney friendly'
-            ,'Kosher','Low-Carb','Low-Fat','Low potassium','Low-Sodium','Mediterranean','No oil added',
-            'No-sugar','Paleo','Pescatarian','Pork-free','Red meat-free','Sugar-conscious','Vegan',
-            'Vegetarian','Mollusk-Free','Sulfite-Free']
-    var foodData =['Alcohol cocktail','Biscuits and cookies','Bread','Cereals','Condiments and sauces'
-,'Desserts','Drinks','Egg','Ice cream and custard','Main course','Pancake','Pasta','Pastry','Pies and tarts'
-,'Pizza','Preps','Preserve','Salad','Sandwiches','Seafood','Side dish','Soup','Special occasions'
-,'Starter','Sweets']
+    var muscleData=["abdominals","abductors","adductors","biceps","calves","chest","forearms",
+    "glutes","hamstrings","lats","lower_back","middle_back","neck","quadriceps","traps","triceps"]
+    var exerciseData=["cardio","olympic_weightlifting","plyometrics","powerlifting","strength",
+"stretching","strongman"]
+    var difficultyData =["beginner","intermediate"]
 
 function showDataCalories(category) {
     const secondColumn = document.getElementById('second-column');

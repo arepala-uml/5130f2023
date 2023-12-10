@@ -262,7 +262,7 @@ def dietplan_page(request: Request):
 
 @app.get('/exerciseplan', response_class=HTMLResponse)
 def exerciseplan_page(request: Request):
-    return templates.TemplateResponse("dietplan.html", {"request": request})
+    return templates.TemplateResponse("exerciseplan.html", {"request": request})
 
 # @app.get('/userdetails/dietplan', methods=['GET'])
 # def dietplan_details():
