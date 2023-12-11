@@ -26,8 +26,8 @@ class AsyncBaseApi:
             "Accept": "application/json",
             "Content-Type": "application/json",
             # edamam user - incase of API limit hit
-            "edamam-account-user": "edamam"
-            # "edamam-account-user": "JithendraKoleti"
+            # "edamam-account-user": "edamam"
+            "edamam-account-user": "JithendraKoleti"
         }
 
     @classmethod
