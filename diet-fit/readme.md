@@ -16,9 +16,9 @@ To run this application, you need to have the following software installed on yo
 - pip3 (Python package manager)
 
 ## Installation (Creating python virtual environment)
-1. change the directory to `~/5130f2023/diet-fit_project`
+1. change the directory to `~/5130f2023/diet-fit`
 ```
-cd ~/5130f2023/diet-fit_project
+cd ~/5130f2023/diet-fit
 ```
 2. create a virtual env( this is done only once)
 ```
@@ -33,17 +33,11 @@ source venv/bin/activate
 pip3 install -r requirements.txt
 ```
 
-5. Install docker based on your OS
-
-6. Bring up the mongoDB container using the docker-compose file
-```
-cd ~/5130f2023/diet-fit_project; docker-compose up -d
-```
 
 ## Usage 
-1. change the directory to `~/5130f2023/diet-fit_project`
+1. change the directory to `~/5130f2023/diet-fit`
 ```
-cd ~/5130f2023/diet-fit_project
+cd ~/5130f2023/diet-fit
 ```
 2. activate the virtual env
 ```
@@ -51,10 +45,10 @@ source venv/bin/activate
 ```
 3. start the flask server
 ```
-python3 main.py
+python3 app.py
 ```
 
 3. To access the application, open the below url in the browser 
 ```
-http://localhost:9000/
+http://localhost:8000/
 ```
