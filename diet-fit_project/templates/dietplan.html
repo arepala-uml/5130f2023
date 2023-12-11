@@ -447,8 +447,8 @@ button {
     var energyKcal ={} 
 
     console.log(selectedItems)
-    // var days = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'];
-    var days = ['Day 1', 'Day 2']
+    var days = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'];
+    // var days = ['Day 1', 'Day 2']
     var allergyData=['Celery-free', 'Crustacean-free', 'Dairy-free', 'Egg-free', 'Fish-free', 
             'Gluten-free', 'Lupine-free', 'Mustard-free', 'Peanut-free', 'Sesame-free','Soy-free',
         'Tree-Nut-free', 'Wheat-free','FODMAP-Free','Immuno-Supportive' ]
@@ -1000,7 +1000,7 @@ function generateMealPlan() {
         return;
     }
     var postData= {
-        "size": 2,
+        "size": 7,
         "plan": {
             "accept":{
                 "all":[]
