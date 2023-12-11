@@ -10,7 +10,7 @@
     }
 	body {
   
-  background: #88c07ff4;
+  background: #b1dcc3f4;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -20,7 +20,7 @@
 
 .box-form {
   display: flex;
-  width: 1370px;
+  width: 1300px;
   max-width: 100%;
   height: 700px;
   background-color: #fff;
@@ -41,11 +41,12 @@
   height: auto;
 }
 .box-form .left {
-  color: #FFFFFF;
+  color: #060505;
+  width:900px;
   background-size: cover;
   background-repeat: no-repeat;
   /* background-image: url("https://i.pinimg.com/736x/5d/73/ea/5d73eaabb25e3805de1f8cdea7df4a42--tumblr-backgrounds-iphone-phone-wallpapers-iphone-wallaper-tumblr.jpg"); */
-  background-image: url('static/images/dietfit.jpg');
+  background-image: url('static/images/dietfit.png');
   overflow: hidden;
 }
 .box-form .left .overlay {
@@ -82,7 +83,12 @@
 }
 .box-form .right {
   padding: 40px;
+  width: 700px;
   overflow: hidden;
+}
+.box-form .right h1 {
+    font-weight: bold;
+    font-size: 80px;
 }
 @media (max-width: 980px) {
   .box-form .right {
@@ -197,6 +203,23 @@ input[type="submit"] {
 .color-grey-9{
   display:none;
 }
+
+#loginButton {
+  width:30%; /* Adjust the width percentage or use an absolute value like width: 150px; */
+  height: 50px;
+  background: #2691d9;
+  border-radius: 10px;
+  font-size: 18px;
+  color: #e9f4fb;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  transition: 0.5s;
+  border: none;
+}
+.button-container {
+  text-align: center;
+}
   </style>
 </head>
 <body>
@@ -209,19 +232,13 @@ input[type="submit"] {
 			<br>
 			<br>
 			<br>
-		<h1>Diet-Fit</h1>
-		<p>Fuel your fitness journey with Diet-Fit: Nourishing your body, 
-            empowering your lifestyle, and achieving total well-being.</p>
+		
 		</div>
 	</div>
 	
 	
 		<div class="right">
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
+      <h1>DietFit</h1>
             <h2>SignUp</h2>
             <p class="hidden-paragraph">Don't have an account? <a a href="signup">Creat Your Account</a> it takes less than a minute</p>
 		<div class="inputs">
@@ -232,9 +249,9 @@ input[type="submit"] {
 			<input type="text" id="email" placeholder="Email">
 			<br>
 			<input type="password" id="password" placeholder="Password">
-		</div>
-        <input type="submit" value="Signup" onclick="signup()"/>
-	</div>
+        <div class="button-container">
+          <input  id="loginButton" type="submit" value="Signup" onclick="signup()"/>
+        </div>
 	
 </div>
 

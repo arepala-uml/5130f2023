@@ -389,12 +389,13 @@ button {
 
 <body>
     <div class="navbar">
-        <a id="brand" href="home">DIET-FIT</a>
+        <a id="brand" href="home">DietFit</a>
         <a href="home">Home</a>
         <a href="about">About Us</a>
   
         <div class="middle">
             <a href="bmi">BMI</a>
+            <a href="calorie">Calorie</a>
             <a href="dietplan">Diet Plan</a>
             <a href="exerciseplan">Exercise Plan</a>
         </div>
@@ -448,7 +449,7 @@ button {
 
     console.log(selectedItems)
     var days = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'];
-    // var days = ['Day 1', 'Day 2']
+    //var days = ['Day 1', 'Day 2']
     var allergyData=['Celery-free', 'Crustacean-free', 'Dairy-free', 'Egg-free', 'Fish-free', 
             'Gluten-free', 'Lupine-free', 'Mustard-free', 'Peanut-free', 'Sesame-free','Soy-free',
         'Tree-Nut-free', 'Wheat-free','FODMAP-Free','Immuno-Supportive' ]
@@ -930,6 +931,13 @@ function showInstructionsModal(data,instructions){
     closeButton.onclick = closeModal;
     modalContent.appendChild(closeButton);
    
+
+    const dishName = document.createElement('h2');
+    dishName.textContent = `Dish: ${data.name}`; 
+    dishName.style.textAlign = 'left'; 
+    dishName.style.fontFamily = "'Mulish', Arial, Helvetica, sans-serif';";
+    modalContent.appendChild(dishName);
+
     const image = document.createElement('img');
     image.src = data.image; 
     // image.alt = data.name; // Set the alternative text
@@ -937,47 +945,26 @@ function showInstructionsModal(data,instructions){
     image.style.margin = '0 auto'; 
     modalContent.appendChild(image);
 
-    const dishName = document.createElement('h3');
-    dishName.textContent = `Dish: ${data.name}`; 
-    dishName.style.textAlign = 'left'; 
-    modalContent.appendChild(dishName);
-
-    const ingredientsName = document.createElement('h3');
+    const ingredientsName = document.createElement('h2');
     ingredientsName.textContent = "Ingredients:"; 
     ingredientsName.style.textAlign = 'left'; 
+    ingredientsName.style.fontFamily = "'Mulish', Arial, Helvetica, sans-serif';";
     modalContent.appendChild(ingredientsName);
 
     const ingredients = document.createElement('p');
     ingredients.textContent = `${instructions}`;
     ingredients.style.textAlign = 'left';
     ingredients.style.whiteSpace = 'pre-line'; 
+    ingredients.style.fontFamily = "'Mulish', Arial, Helvetica, sans-serif';";
     modalContent.appendChild(ingredients);
 
-    const sourceName = document.createElement('h3');
-    sourceName.textContent = "Source:"; 
-    sourceName.style.textAlign = 'left'; 
-    modalContent.appendChild(sourceName);
-
-    const source = document.createElement('p');
-    source.textContent = `${data.source}`; 
-    source.style.textAlign = 'left'; 
-    source.style.cursor = 'pointer'; 
-    source.addEventListener('mouseover', function() {
-        source.style.color = 'blue'; // Change text color on hover
-        source.style.textDecoration = 'underline'; // Add underline on hover
-    });
-
-    source.addEventListener('mouseout', function() {
-        source.style.color = ''; // Reset text color
-        source.style.textDecoration = ''; // Remove underline
-    });
-    source.onclick = function() {
-        window.location.href = data.url; 
-    };
+    const source = document.createElement('h2');
+    source.textContent = `Source: ${data.source}`; 
+    source.innerHTML = `Source: <a href="${data.url}" style="color: blue; text-decoration: underline; font-family: 'Mulish', Arial, Helvetica, sans-serif;">${data.source}</a>`;
+    source.style.textAlign = 'left';
+    source.style.fontFamily = "'Mulish', Arial, Helvetica, sans-serif';";
+    source.style.cursor = 'pointer';
     modalContent.appendChild(source);
-
-    
-
 
     modal.appendChild(modalContent);
 

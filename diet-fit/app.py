@@ -1,17 +1,18 @@
+
+import time
+import json
+import sys
+import bcrypt
+import uvicorn
 from async_requests import AsyncBaseApi
 from fastapi import FastAPI, Request, HTTPException, Response
 from fastapi.responses import HTMLResponse
 from fastapi.responses import JSONResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-import time
-import json
-import os
-import sys
-import bcrypt
-import uvicorn
 from pymongo import MongoClient, ASCENDING
 from pydantic import BaseModel
+from key_data import *
 
 class UserSignup(BaseModel):
     firstName: str 
@@ -24,14 +25,6 @@ class UserLogin(BaseModel):
     password: str
 
 async_base_api = AsyncBaseApi()
-mongo_password = os.getenv("MONGO_PASSWORD", "")
-if mongo_password == "":
-    print("unable to get mongoDB password from os, so exiting...")
-    sys.exit(1)
-MONGO_URI = f"mongodb+srv://5130f2023:{mongo_password}@5130f2023-iws.kprx95f.mongodb.net/?retryWrites=true&w=majority"
-DB_NAME = "dietfit"
-USERS_COLLECTION = "users"
-EXERCISE_COLLECTION = "exercises"
 
 async def startup_aiohttp() -> None:
     async_base_api.get_aiohttp_client()
@@ -118,116 +111,12 @@ async def simple_get():
 async def multi_get(request: Request):
     result={}
     t1 = time.time()
-    post_body = await request.json()
-
-
-    isValid = validateJSON(json.dumps(post_body))
-    print(isValid)
-    print(post_body)
-    # post_body = {
-    #     "size": 2,
-    #     "plan": {
-    #         "accept": {
-    #             "all": [
-    #                 {
-    #                     "health": [
-    #                         "CELERY_FREE",
-    #                         "FISH_FREE",
-    #                         "SESAME_FREE"
-    #                     ]
-    #                 }
-    #             ]
-    #         },
-    #         "fit": {
-    #             "ENERC_KCAL": {
-    #                 "min": 1000,
-    #                 "max": 2000
-    #             },
-    #             "PROCNT": {
-    #                 "min": 10
-    #             }
-    #         },
-    #         "sections": {
-    #             "Breakfast": {
-    #                 "accept": {
-    #                     "all": [
-    #                         {
-    #                             "dish": [
-    #                                 "cereals",
-    #                                 "pastry",
-    #                                 "seafood"
-    #                             ]
-    #                         },
-    #                         {
-    #                             "meal": [
-    #                                 "breakfast"
-    #                             ]
-    #                         }
-    #                     ]
-    #                 },
-    #                 "fit": {
-    #                     "ENERC_KCAL": {
-    #                         "min": 100,
-    #                         "max": 600
-    #                     }
-    #                 }
-    #             },
-    #             "Dinner": {
-    #                 "accept": {
-    #                     "all": [
-    #                         {
-    #                             "dish": [
-    #                                 "pies and tarts",
-    #                                 "soup",
-    #                                 "salad",
-    #                                 "main course"
-    #                             ]
-    #                         },
-    #                         {
-    #                             "meal": [
-    #                                 "lunch/dinner"
-    #                             ]
-    #                         }
-    #                     ]
-    #                 },
-    #                 "fit": {
-    #                     "ENERC_KCAL": {
-    #                         "min": 200,
-    #                         "max": 900
-    #                     }
-    #                 }
-    #             }
-    #         }
-    #     }
-    # }
-   
-    # # post_body = await request.json()
-    
-    # post_body = {'size': 7, 'plan': {'accept': {'all': [{'health': ['CELERY_FREE', 'GLUTEN_FREE', 'HIGH_PROTEIN', 'LOW_FAT']}]}, 'fit': {'ENERC_KCAL': {'min': 1000, 'max': 2000}, 'PROCNT': {'min': 10}}, 'sections': {'Breakfast': {'accept': {'all': [{'dish': ['main course', 'pies and tarts']}, {'meal': ['breakfast']}]}, 'fit': {'ENERC_KCAL': {'min': 150, 'max': 300}}}, 'Lunch': {'accept': {'all': [{'dish': ['ice cream and custard', 'pancake']}, {'meal': ['lunch/dinner']}]}, 'fit': {'ENERC_KCAL': {'min': 150, 'max': 600}}}, 'Dinner': {'accept': {'all': [{'dish': ['pastry', 'salad']}, {'meal': ['lunch/dinner']}]}, 'fit': {'ENERC_KCAL': {'min': 150, 'max': 600}}}}}}
-    # print(post_body)
-    # post_body = {    "size": 7,    "plan": {        "accept": {            "all": [               {"health": [ "DAIRY_FREE", "MUSTARD_FREE"]},{"diet": [ "BALANCED"]}            ]        },        "fit": {            "ENERC_KCAL": {"min": 1000, "max": 2000},"PROCNT": {"min": 10}        },        "sections": {            "Breakfast": {   "accept": {       "all": [           {"dish": ["bread","cereals","egg"]},{"meal": [ "breakfast" ]}       ]   },   "fit": {       "ENERC_KCAL": {"min": 100, "max": 600}   }},"Lunch": {   "accept": {       "all": [           {"dish": ["salad","sandwiches","side dish"]},{"meal": [ "lunch/dinner" ]}       ]   },   "fit": {       "ENERC_KCAL": {"min": 300, "max": 900}   }},"Dinner": {   "accept": {       "all": [          {"dish": ["seafood","soup"]},{"meal": [ "lunch/dinner" ]}       ]   },   "fit": {       "ENERC_KCAL": {"min": 200, "max": 900}   }}        }    }}
-    # edamam dev keys
-
-
-    
-
-    # JithendraKoleti
-    post_app_id = "df73a8c7"
-    post_app_key = "2413b205b880ef489929e5af3f47465d"
-    get_app_id = "df73a8c7"
-    get_app_key = "2413b205b880ef489929e5af3f47465d"
-
-    # edamam app
-    # post_app_id = "b26fb46d"
-    # post_app_key = "c887a724df8435d92a76f3ec8b3ba91a"
-    # get_app_id = "469fc797"
-    # get_app_key = "01c8217e070a97ba8180863e94daa8e6"
+    post_body = await request.json()   
     post_url = f"https://api.edamam.com/api/meal-planner/v1/{str(post_app_id)}/select"
     post_params = {
         "app_id": post_app_id,
         "app_key": post_app_key
     }
-    
     post_resp = await async_base_api.post(url=post_url, body=json.dumps(post_body), params=post_params)
     if post_resp["status_code"] == 200:
         resp = json.loads(post_resp['body'])
@@ -243,7 +132,6 @@ async def multi_get(request: Request):
                         recipe_urls[meal].append(str(assigned_obj["assigned"]).split("#")[1])
             get_resp_map = {}
             get_url = f"https://api.edamam.com/api/recipes/v2/RECIPE?type=public&app_id={get_app_id}&app_key={get_app_key}"
-            #print(recipe_urls)
             for meal in recipe_urls:
                 for recipe_id in recipe_urls[meal]:
                     string = meal + "::" + recipe_id
@@ -253,19 +141,16 @@ async def multi_get(request: Request):
             for i in range(1,8):
                 day="Day_%i" %(i)
                 result[day]={}
-            print(result)
             bc=1
             lc=1
             dc=1
             for key in  get_resp_map:
-                # print("*"*70)
-                print(key)
                 data={}
                 response_data= get_resp_map[key]
                 recipe_data=json.loads(response_data["body"])["recipe"]
                 #print(recipe_data)
                 data["name"]=recipe_data["label"]
-                data["image"]=recipe_data["images"]["THUMBNAIL"]["url"]
+                data["image"]=recipe_data["images"]["SMALL"]["url"]
                 data["servings"]=recipe_data["yield"]
                 calories=(recipe_data["totalNutrients"]["ENERC_KCAL"]["quantity"])/recipe_data["yield"]
                 protein=(recipe_data["totalNutrients"]["PROCNT"]["quantity"])/recipe_data["yield"]
@@ -278,7 +163,7 @@ async def multi_get(request: Request):
                 data["source"]=recipe_data["source"]
                 data["url"]=recipe_data["url"]
                 data["instructions"]=recipe_data["ingredientLines"]
-                print(data)
+                # print(data)
                 if "Breakfast" in key:
                     meal_type="Breakfast"
                     day="Day_%i" %(bc)
@@ -294,8 +179,7 @@ async def multi_get(request: Request):
                     day="Day_%i" %(dc)
                     result[day][meal_type]=data
                     dc = dc+1
-            print(result)
-
+            # print(result)
         else:
             print("status not OK")
     else:
@@ -303,7 +187,7 @@ async def multi_get(request: Request):
         return JSONResponse(content={"success": False,"data":result,"error":post_resp['error']}, status_code=401)
     t2 = time.time()
     print(t2-t1)
-    print(post_resp)
+    # print(post_resp)
     return JSONResponse(content={"success": True,"data":result,"error":""}, status_code=200)
 
 @app.get('/', response_class=HTMLResponse)
@@ -334,6 +218,10 @@ def logout_page(request: Request):
 def bmi_page(request: Request):
     return templates.TemplateResponse("bmi.html", {"request": request})
 
+@app.get('/calorie', response_class=HTMLResponse)
+def calorie_page(request: Request):
+    return templates.TemplateResponse("calorie.html", {"request": request})
+
 @app.get('/dietplan', response_class=HTMLResponse)
 def dietplan_page(request: Request):
     return templates.TemplateResponse("dietplan.html", {"request": request})
@@ -341,17 +229,6 @@ def dietplan_page(request: Request):
 @app.get('/exerciseplan', response_class=HTMLResponse)
 def exerciseplan_page(request: Request):
     return templates.TemplateResponse("exerciseplan.html", {"request": request})
-
-# @app.get('/userdetails/dietplan', methods=['GET'])
-# def dietplan_details():
-#     # Pass user data as query parameters to the 'dietplan.html' page
-#     user_data = {
-#         'age': request.args.get('age'),
-#         'height': request.args.get('height'),
-#         'weight': request.args.get('weight'),
-#         'gender': request.args.get('gender')
-#     }
-#     return render_template('dietplan.html', user_data=user_data)
 
 @app.post('/signupCheck')
 async def signup(user: UserSignup):
@@ -412,6 +289,34 @@ async def calculate_bmi(request: Request):
     bmi = weight / ((height / 100) ** 2)
     return JSONResponse(content={"bmi": bmi,"success": True},status_code=200)
 
+def cm_to_inches(cm):
+    # 1 inch is approximately equal to 2.54 cm
+    inches = cm / 2.54
+    return inches
+
+def kg_to_pounds(kg):
+    # 1 kilogram is approximately equal to 2.20462 pounds
+    pounds = kg * 2.20462
+    return pounds
+
+def calculate_bmr(weight, height, age, gender):
+    if gender == "male":
+        bmr = 66 + (6.3 * float(weight)) + (12.9 * float(height)) - (6.8 * float(age))
+    else:
+        bmr = 655 + (4.3 * float(weight)) + (4.7 * float(height)) - (4.7 * float(age))
+    return bmr
+
+def calculate_daily_calories(bmr, activity_level):
+    if activity_level == "sedentary":
+        calories = bmr * 1.2
+    elif activity_level == "lightly active":
+        calories = bmr * 1.375
+    elif activity_level == "moderately active":
+        calories = bmr * 1.55
+    else:
+        calories = bmr * 1.725
+    return calories
+
 @app.post('/calculate_calories')
 async def calculate_calories(request: Request):
     data = await request.json()
@@ -419,24 +324,10 @@ async def calculate_calories(request: Request):
     age = data.get('age',None)
     height = int(data.get('height',None))
     weight = int(data.get('weight',None))
-    bmi = weight / ((height / 100) ** 2)
-
-    # Define calorie intake based on gender and BMI
-    calorie_intake = 2000
-    if gender == 'male':
-        if bmi < 18.5:
-            calorie_intake = 2500  
-        elif 18.5 <= bmi < 24.9:
-            calorie_intake = 2200
-        else:
-            calorie_intake = 2000
-    elif gender == 'female':
-        if bmi < 18.5:
-            calorie_intake = 2000
-        elif 18.5 <= bmi < 24.9:
-            calorie_intake = 1800
-        else:
-            calorie_intake = 1600
+    activity_level = data.get('activity_level', None)
+    print(data)
+    bmr = calculate_bmr(kg_to_pounds(weight), cm_to_inches(height), age, gender)
+    calorie_intake = calculate_daily_calories(bmr, activity_level)
     print(calorie_intake)    
     return JSONResponse(content={"calorie_intake": calorie_intake,"success": True},status_code=200)
 
@@ -511,4 +402,4 @@ async def get_exercises(request: Request):
 
 if __name__ == "__main__":
     uvicorn.run("app:app", host="0.0.0.0", port=8000, 
-                reload=True, log_level="debug")
+                reload=False, log_level="debug")
