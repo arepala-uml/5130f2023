@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Diet Plan</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="static/styles.css">
     <style>
         /* body {
             margin: 0;
@@ -21,7 +21,7 @@
             display: flex;
             width: 1370px;
             max-width: 100%;
-            height: 700px;
+            height: 640px;
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -131,12 +131,12 @@
         }
 
         .selectable-cell.selected-cell {
-            background-color: #4caf50;
+            background-color: #378e74;;
             color: white;
         }
 
         #third-column .selected-cell {
-            background-color: #4caf50;
+            background-color: #378e74;;
             color: white;
             padding: 10px;
             margin: 5px;
@@ -161,32 +161,26 @@
             margin-top: 10px;
         }
 
-            .navbar {
-        background-color: #8bdcadf4; /* Set a nice navbar color */
-        overflow: hidden;
-        display: flex;
-        justify-content: space-between;
-        padding: 10px;
-    }
+        .navbar a {
+    color: black;
+    text-decoration: none;
+    /* text-shadow: 0 0 15px black; */
+    font-size: 20px;
+    padding: 20px;
+    font-weight: bold;
+}
 
-    .navbar a {
-        color: black;
-        text-decoration: none;
-        font-size: 17px;
-        padding: 10px;
-    }
+.navbar a:hover {
+    background-color: #55b677; /* Change background color on hover */
+}
 
-    .navbar a:hover {
-        background-color: white; /* Change background color on hover */
-    }
+.navbar #brand {
+    font-weight: bold;
+}
 
-    .navbar #brand {
-        font-weight: bold;
-    }
-
-    .navbar .middle {
-        margin: auto;
-    }
+.navbar .middle {
+    margin: auto;
+}
     .meal-plan {
         display: flex;
         flex-wrap: wrap;
@@ -194,7 +188,20 @@
         margin: 20px;
     }
 
-    .day-box {
+    /* .day-box {
+    width: calc(33.33% - 20px);
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 15px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+} */
+
+.day-box {
         width: calc(33.33% - 20px);
         background-color: white;
         border-radius: 10px;
@@ -205,7 +212,79 @@
     }
     .meal {
         margin-bottom: 10px;
+        text-align: left;
+        font-size: medium;
     }
+    .mealName {
+        margin-bottom: 10px;
+        font-weight: bolder;
+        text-align: left;
+        font-size: larger;
+    }
+
+.left-side {
+    display: flex;
+    flex-direction: column;
+    text-align: left; /* Align text to the left */
+    max-width: 100%; /* Adjust the width of the left side */
+}
+
+.right-side {
+    max-width: 100%; /* Adjust the width of the right side */
+}
+
+/* .meal {
+    margin-bottom: 5px;
+} */
+
+ul {
+    padding: 0;
+    list-style-type: none; /* Remove default bullet points */
+    margin-top: 0;
+}
+
+ul li {
+    margin-left: 20px; /* Add margin for bullet points */
+    display: flex; /* Align the circles horizontally */
+    align-items: center; /* Center the circles vertically */
+}
+
+ul li::before {
+    content: '\2022'; /* Unicode character for a small circle */
+    font-size: 20px;
+    margin-right: 5px; /* Add space between the circle and text */
+}
+
+.column1 {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.column2 {
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.column2 img {
+    max-width: 100%;
+    max-height: 150px;
+}
+
+.image-container {
+    text-align: right; /* Center the image within the container */
+}
+
+/* .meal {
+    margin-top: 10px;
+    font-weight: 700;
+    text-align: left; 
+} */
     .calories-input-container {
     display: flex;
     gap: 10px;
@@ -229,34 +308,99 @@
     .calorie-range-cell .remove-button {
     cursor: pointer;
     }
+    .colored-button {
+            background-color: #378e74; /* Set the background color to a shade of blue */
+            color: white; /* Set the text color to white */
+            padding: 10px 20px; /* Adjust the padding for button size */
+            border: none; /* Remove the default button border */
+            border-radius: 5px; /* Add rounded corners */
+            cursor: pointer; /* Change the cursor to a pointer on hover */
+    }
+
+    .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+}
+
+.close {
+    color: #750d0d;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+h3, p {
+    text-align: center;
+    font-family: 'Mulish', Arial, Helvetica, sans-serif;
+    margin-bottom: 10px;
+}
+
+p {
+    margin-bottom: 20px;
+}
+
+
+button {
+    background-color: #378e74;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+    
     </style>
 </head>
 
 <body>
     <div class="navbar">
-        <a id="brand" href="home.html">DIET-FIT</a>
-        <a href="home.html">Home</a>
-        <a href="aboutus.html">About Us</a>
+        <a id="brand" href="home">DIET-FIT</a>
+        <a href="home">Home</a>
+        <a href="about">About Us</a>
   
         <div class="middle">
-            <a href="bmi.html">BMI</a>
-            <a href="#">Diet Plan</a>
-            <a href="#">Exercise Plan</a>
+            <a href="bmi">BMI</a>
+            <a href="dietplan">Diet Plan</a>
+            <a href="exerciseplan">Exercise Plan</a>
         </div>
   
-        <a href="login.html">Logout</a>
-    </div>
-    <!-- <header>
-        <h1 class="pageHeader">MyDietDiary</h1>
-        <div class="intro flex-container-intro">
-            <div class="flex-item-card-intro">
-                <div class="greetings">
-                    <h1>Hi, Wen Chen!</h1>
-                    <h2>DIET PLAN</h2>
-                </div>
-            </div>
-        </div>
-    </header> -->
+        <a href="login">Logout</a>
+      </div>
     <br>
     <br>
 
@@ -290,17 +434,21 @@
             <br>
             <div id="dinner-column">Dinner</div>
             <br>
-            <button class="search-button" onclick=generateMealPlan()>SEARCH</button>
+            <!-- <button class="search-button" onclick=generateMealPlan()>SEARCH</button> -->
+            <button class ="colored-button" onclick="generateMealPlan(event)">SEARCH</button>
           </div>
     </div>
 <br>
-    <div id="meal-plan-name">></div>
+    <div id="meal-plan-name"></div>
     <div class="meal-plan" id="mealPlan"></div>
 
     <script>
     var selectedItems = [];
+    var energyKcal ={} 
+
     console.log(selectedItems)
-    var days = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'];
+    // var days = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'];
+    var days = ['Day 1', 'Day 2']
     var allergyData=['Celery-free', 'Crustacean-free', 'Dairy-free', 'Egg-free', 'Fish-free', 
             'Gluten-free', 'Lupine-free', 'Mustard-free', 'Peanut-free', 'Sesame-free','Soy-free',
         'Tree-Nut-free', 'Wheat-free','FODMAP-Free','Immuno-Supportive' ]
@@ -645,56 +793,413 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// Function to create a meal box
-function createMealBox(day, mealType) {
+//Function to create a meal box
+// function createMealBox(day, mealType, data) {
+//     console.log(data);
+//     const box = document.createElement('div');
+//     box.classList.add('day-box');
+
+//     // Centered and bold title at the top
+//     const title = document.createElement('h3');
+//     title.textContent = `${day} - ${mealType}`;
+//     title.style.textAlign = 'center'; // Center the text
+//     title.style.fontWeight = 'bold'; // Make the text bold
+//     box.appendChild(title);
+
+//     // Left side (meal name and calorie value)
+//     const leftSide = document.createElement('div');
+//     leftSide.classList.add('left-side');
+
+//     // Add name to the meal
+//     const meal = document.createElement('div');
+//     meal.classList.add('meal');
+//     meal.textContent = `${data["name"]}`;
+//     meal.style.textAlign = data["name"].length > 12 ? 'left' : 'center'; // Adjust based on name length
+//     meal.style.fontWeight = 'bold'; // Make the text bold
+//     leftSide.appendChild(meal);
+
+//     // Calories on the left
+//     const calories = document.createElement('div');
+//     calories.classList.add('meal');
+//     calories.textContent = `Calories: ${data["calories"]}`;
+//     leftSide.appendChild(calories);
+
+//     // Add bullet points with colorful circles
+//     const bulletPoints = document.createElement('ul');
+
+//     const proteinBullet = document.createElement('li');
+//     proteinBullet.textContent = `Protein: ${data["protein"]}`;
+//     proteinBullet.style.color = 'blue'; // Set color for the bullet point
+//     bulletPoints.appendChild(proteinBullet);
+
+//     const fatBullet = document.createElement('li');
+//     fatBullet.textContent = `Fat: ${data["fat"]}`;
+//     fatBullet.style.color = 'green'; // Set color for the bullet point
+//     bulletPoints.appendChild(fatBullet);
+
+//     const carbsBullet = document.createElement('li');
+//     carbsBullet.textContent = `Carbs: ${data["carbs"]}`;
+//     carbsBullet.style.color = 'red'; // Set color for the bullet point
+//     bulletPoints.appendChild(carbsBullet);
+
+//     leftSide.appendChild(bulletPoints);
+//     box.appendChild(leftSide);
+
+//     // Right side (image)
+//     const rightSide = document.createElement('div');
+//     rightSide.classList.add('right-side');
+
+//     // Image on the right
+//     const imageContainer = document.createElement('div');
+//     imageContainer.classList.add('image-container');
+
+//     const image = document.createElement('img');
+//     image.src = `${data["image"]}`;
+//     image.alt = 'Meal Image';
+//     // Set maximum width
+//     image.style.maxWidth = '100%';
+//     // Set maximum height if needed
+//     // image.style.maxHeight = '100px';
+//     imageContainer.appendChild(image);
+
+//     rightSide.appendChild(imageContainer);
+//     box.appendChild(rightSide);
+
+//     return box;
+// }
+
+function createMealBox(day, mealType,data) {
     const box = document.createElement('div');
     box.classList.add('day-box');
     
     const title = document.createElement('h3');
     title.textContent = `${day} - ${mealType}`;
+    title.style.textAlign = 'center'; // Center the text
+    title.style.fontWeight = 'bold'; // Make the text bold
     box.appendChild(title);
 
     // Generate sample meal content (replace with actual data)
     const meal = document.createElement('div');
-    meal.classList.add('meal');
-    meal.textContent = `Food: Sample Food`;
+    meal.classList.add('mealName');
+    meal.textContent = `${data["name"]}`;
+    meal.style.fontWeight = 'bold';
     box.appendChild(meal);
 
     const calories = document.createElement('div');
     calories.classList.add('meal');
-    calories.textContent = `Calories: ${getRandomInt(300, 800)}`;
+    calories.textContent = `• Calories: ${data["calories"]}`;
     box.appendChild(calories);
 
     const protein = document.createElement('div');
     protein.classList.add('meal');
-    protein.textContent = `Protein: ${getRandomInt(10, 30)}g`;
+    protein.textContent = `• Protein: ${data["protein"]}`;
     box.appendChild(protein);
 
     const fat = document.createElement('div');
     fat.classList.add('meal');
-    fat.textContent = `Fat: ${getRandomInt(5, 20)}g`;
+    fat.textContent = `• Fat: ${data["fat"]}`;
     box.appendChild(fat);
 
+    const carbs = document.createElement('div');
+    carbs.classList.add('meal');
+    carbs.textContent = `• Carbs: ${data["carbs"]}`;
+    box.appendChild(carbs);
+
+
+    const instructionsList = data.instructions;
+    const instructions = instructionsList.map((instruction, index) => `${index + 1}. ${instruction.trim()}.`).join('\n');
+
+    console.log(instructions)
+    const instructionsButton = document.createElement('button');
+    instructionsButton.textContent = 'More details';
+    instructionsButton.addEventListener('click', () => showInstructionsModal(data,instructions));
+    box.appendChild(instructionsButton)
     return box;
 }
 
+function showInstructionsModal(data,instructions){
+    const modal = document.createElement('div');
+    modal.classList.add('modal');
+
+    const modalContent = document.createElement('div');
+    modalContent.classList.add('modal-content');
+
+    const closeButton = document.createElement('span');
+    closeButton.classList.add('close');
+    closeButton.textContent = 'X';
+    closeButton.onclick = closeModal;
+    modalContent.appendChild(closeButton);
+   
+    const image = document.createElement('img');
+    image.src = data.image; 
+    // image.alt = data.name; // Set the alternative text
+    image.style.display = 'block'; 
+    image.style.margin = '0 auto'; 
+    modalContent.appendChild(image);
+
+    const dishName = document.createElement('h3');
+    dishName.textContent = `Dish: ${data.name}`; 
+    dishName.style.textAlign = 'left'; 
+    modalContent.appendChild(dishName);
+
+    const ingredientsName = document.createElement('h3');
+    ingredientsName.textContent = "Ingredients:"; 
+    ingredientsName.style.textAlign = 'left'; 
+    modalContent.appendChild(ingredientsName);
+
+    const ingredients = document.createElement('p');
+    ingredients.textContent = `${instructions}`;
+    ingredients.style.textAlign = 'left';
+    ingredients.style.whiteSpace = 'pre-line'; 
+    modalContent.appendChild(ingredients);
+
+    const sourceName = document.createElement('h3');
+    sourceName.textContent = "Source:"; 
+    sourceName.style.textAlign = 'left'; 
+    modalContent.appendChild(sourceName);
+
+    const source = document.createElement('p');
+    source.textContent = `${data.source}`; 
+    source.style.textAlign = 'left'; 
+    source.style.cursor = 'pointer'; 
+    source.addEventListener('mouseover', function() {
+        source.style.color = 'blue'; // Change text color on hover
+        source.style.textDecoration = 'underline'; // Add underline on hover
+    });
+
+    source.addEventListener('mouseout', function() {
+        source.style.color = ''; // Reset text color
+        source.style.textDecoration = ''; // Remove underline
+    });
+    source.onclick = function() {
+        window.location.href = data.url; 
+    };
+    modalContent.appendChild(source);
+
+    
+
+
+    modal.appendChild(modalContent);
+
+    // Append modal to the body
+    document.body.appendChild(modal);
+
+    // Display the modal
+    modal.style.display = 'block';
+}
+
+function closeModal() {
+    // Close the modal by removing it from the DOM
+    const modal = document.querySelector('.modal');
+    modal.parentNode.removeChild(modal);
+}
+
 function generateMealPlan() {
+    if (selectedItems.length == 0){
+        alert("Please select the food items.");
+        return;
+    }
+    var postData= {
+        "size": 2,
+        "plan": {
+            "accept":{
+                "all":[]
+            },
+            "fit":{
+                "ENERC_KCAL": {},
+                "PROCNT":{
+                    "min":10
+                }
+            },
+            "sections":{}
+        }
+    }
+    var allItems=[]
+    var dietItems=[]
+    var breakfastItems=[]
+    var lunchItems=[]
+    var dinnerItems=[]
+    var energyKcal={}
+    var breakfastDict ={
+        "accept":{
+            "all":[
+                {
+                    "meal":[
+                        "breakfast"
+                    ]
+                }
+            ]
+        },
+        "fit":{
+            "ENERC_KCAL": {}
+        }
+    }
+    var lunchDict ={
+        "accept":{
+            "all":[
+                {
+                    "meal":[
+                        "lunch/dinner"
+                    ]
+                }
+            ]
+        },
+        "fit":{
+            "ENERC_KCAL": {}
+        }
+    }
+    var dinnerDict ={
+        "accept":{
+            "all":[
+                {
+                    "meal":[
+                        "lunch/dinner"
+                    ]
+                }
+            ]
+        },
+        "fit":{
+            "ENERC_KCAL": {}
+        }
+    }
+
+    console.log(selectedItems)
+    for (i=0; i<selectedItems.length;i++){
+        console.log(selectedItems[i])
+        if (selectedItems[i].category == "Allergies"){
+            allItems.push((selectedItems[i].item.replace('-','_')).toUpperCase())
+        }else if (selectedItems[i].category == "Diet"){
+            dietItems.push((selectedItems[i].item.replace('-','_')).toUpperCase())
+        }else if (selectedItems[i].category == "calories"){
+            energyKcal["min"]=parseInt(selectedItems[i].item.split("-")[0])
+            energyKcal["max"]=parseInt(selectedItems[i].item.split("-")[1].replace("kcal",""))
+        }else if (selectedItems[i].category == "Breakfast"){
+            breakfastItems.push(selectedItems[i].item.toLowerCase())
+        }else if (selectedItems[i].category == "Lunch"){
+            lunchItems.push(selectedItems[i].item.toLowerCase())
+        }else{
+            dinnerItems.push(selectedItems[i].item.toLowerCase())
+        }
+    }
+    console.log(energyKcal)
+    if (energyKcal["min"]>= 1000 && energyKcal["max"]<=2000 && energyKcal["min"]< 1500){
+        energyKcal["min"]=1000
+        energyKcal["max"]=2000
+        breakfastmin=100
+        breakfastmax=600
+        lunchmin=300
+        lunchmax=900
+        dinnermin=200
+        dinnermax=900
+    } else if ((energyKcal["min"]>= 1500 && energyKcal["max"]<=2000)){
+        energyKcal["min"]=1500
+        energyKcal["max"]=2000
+        breakfastmin=150
+        breakfastmax=600
+        lunchmin=450
+        lunchmax=900
+        dinnermin=300
+        dinnermax=900
+    }else{
+        energyKcal["min"]=1000
+        energyKcal["max"]=2000
+        breakfastmin=100
+        breakfastmax=600
+        lunchmin=300
+        lunchmax=900
+        dinnermin=200
+        dinnermax=900
+    }
+    postData["plan"]["fit"]["ENERC_KCAL"]=energyKcal
+    postData["plan"]["accept"]["all"].push({"health":allItems})
+    if (dietItems.length !=0){
+            postData["plan"]["accept"]["all"].push({"diet":dietItems})
+    }
+    console.log(breakfastItems)
+    if (breakfastItems.length != 0 && lunchItems.length != 0 && dinnerItems.length != 0){
+        breakfastDict["fit"]["ENERC_KCAL"]["min"]= breakfastmin
+        breakfastDict["fit"]["ENERC_KCAL"]["max"]=breakfastmax
+        lunchDict["fit"]["ENERC_KCAL"]["min"]=lunchmin
+        lunchDict["fit"]["ENERC_KCAL"]["max"]=lunchmax
+        dinnerDict["fit"]["ENERC_KCAL"]["min"]=dinnermin
+        dinnerDict["fit"]["ENERC_KCAL"]["max"]=dinnermax
+        breakfastDict["accept"]["all"].push({"dish": breakfastItems})
+        lunchDict["accept"]["all"].push({"dish": lunchItems})
+        dinnerDict["accept"]["all"].push({"dish": dinnerItems})
+        postData["plan"]["sections"]["Breakfast"]=breakfastDict
+        postData["plan"]["sections"]["Lunch"]=lunchDict
+        postData["plan"]["sections"]["Dinner"]=dinnerDict
+    } else if (breakfastItems.length != 0 && lunchItems.length != 0){
+        breakfastDict["accept"]["all"].push({"dish": breakfastItems})
+        lunchDict["accept"]["all"].push({"dish": lunchItems})
+        postData["plan"]["sections"]["Breakfast"]=breakfastDict
+        postData["plan"]["sections"]["Lunch"]=lunchDict
+    } else if (dinnerItems.length != 0 && lunchItems.length != 0){
+        lunchDict["accept"]["all"].push({"dish": lunchItems})
+        dinnerDict["accept"]["all"].push({"dish": dinnerItems})
+        postData["plan"]["sections"]["Lunch"]=lunchDict
+        postData["plan"]["sections"]["Dinner"]=dinnerDict
+    }else{
+        breakfastDict["accept"]["all"].push({"dish": breakfastItems})
+        dinnerDict["accept"]["all"].push({"dish": dinnerItems})
+        postData["plan"]["sections"]["Breakfast"]=breakfastDict
+        postData["plan"]["sections"]["Dinner"]=dinnerDict
+    }
+
+    console.log(allItems)
+    console.log(dietItems)
+    console.log(breakfastItems)
+    console.log(postData)
+
+    var responseData={}
+    fetch('/viewDiet', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postData),
+    })
+    .then(response => response.json())  // Parse the JSON response
+    .then(result => {
+        // Display the result on the page
+        if (result.success){
+            responseData=result.data
+            displayData(result.data)
+
+            //console.log(responseData)
+        }else{
+            alert('Request got failed with an error '+ result.error);
+            return
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while processing your request.');
+    });
+
+}
+
+function displayData(data){
+    console.log(data)
     const mealPlanContainer = document.getElementById('mealPlan');
+    mealPlanContainer.innerHTML = ''
     const mealPlanNameText = "Your Daily Meal Planner";
     const mealPlanNameElement = document.getElementById('meal-plan-name');
     //mealPlanNameElement.appendChild(document.createElement('br'));
     //mealPlanNameElement.appendChild(document.createTextNode(mealPlanNameText));
-   mealPlanNameElement.textContent = mealPlanNameText;
+    mealPlanNameElement.textContent = mealPlanNameText;
     mealPlanNameElement.style.textAlign = 'center';
     mealPlanNameElement.style.margin = '0 auto';
     mealPlanNameElement.style.fontSize = '24px'; 
 
-
+    //console.log(responseData)
     days.forEach(day => {
         // Create breakfast, lunch, and dinner boxes for each day
-        const breakfastBox = createMealBox(day, 'Breakfast');
-        const lunchBox = createMealBox(day, 'Lunch');
-        const dinnerBox = createMealBox(day, 'Dinner');
+        dayValue=day.replace(' ', '_')
+        console.log(dayValue)
+        const breakfastBox = createMealBox(day, 'Breakfast',data[dayValue]["Breakfast"]);
+        const lunchBox = createMealBox(day, 'Lunch',data[dayValue]["Lunch"]);
+        const dinnerBox = createMealBox(day, 'Dinner',data[dayValue]["Dinner"]);
         const dayContainer = document.createElement('div');
         dayContainer.classList.add('day-container');
 
@@ -706,10 +1211,15 @@ function generateMealPlan() {
         // Append the meal boxes to the meal plan container
         //mealPlanContainer.appendChild(dayContainer)
 
-            mealPlanContainer.appendChild(breakfastBox);
-            mealPlanContainer.appendChild(lunchBox);
-            mealPlanContainer.appendChild(dinnerBox);
+        mealPlanContainer.appendChild(breakfastBox);
+        mealPlanContainer.appendChild(lunchBox);
+        mealPlanContainer.appendChild(dinnerBox);
     });
+}
+
+function removeDuplicates(arr) {
+    return arr.filter((item,
+        index) => arr.indexOf(item) === index);
 }
 
 window.addEventListener('load', function () {

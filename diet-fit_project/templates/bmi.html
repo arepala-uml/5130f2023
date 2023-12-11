@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>BMI Calculator</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="static/styles.css">
     <style>
 
         .container {
@@ -82,17 +82,18 @@
 
 <body>
     <div class="navbar">
-        <a id="brand" href="home.html">DIET-FIT</a>
-        <a href="home.html">Home</a>
-        <a href="aboutus.html">About Us</a>
+        <a id="brand" href="home">DIET-FIT</a>
+        <a href="home">Home</a>
+        <a href="about">About Us</a>
+  
         <div class="middle">
-            <a href="bmi.html">BMI</a>
-            <a href="dietplan.html">Diet Plan</a>
-            <a href="#">Exercise Plan</a>
+            <a href="bmi">BMI</a>
+            <a href="dietplan">Diet Plan</a>
+            <a href="exerciseplan">Exercise Plan</a>
         </div>
-        <a href="login.html">Logout</a>
-    </div>
-
+  
+        <a href="login">Logout</a>
+      </div>
 
     <!-- <header>
         <h1 class="pageHeader">MyDietDiary</h1>
@@ -140,15 +141,16 @@
             </select>
 
             <br><br>
-
         
-            <button class ="colored-button" type="submit" onclick="calculateBMI(event)">Calculate BMI</button>
+        <button class ="colored-button" type="submit" onclick="calculateBMI(event)">Calculate BMI</button>
         <button class="colored-button" type="button" onclick="calculateCalorie(event)">Calculate Calorie Intake</button>
         <button class="colored-button" type="button" onclick="openDietPlan()">Diet Plan</button>
         </form>
+        <br>
+        <div id="result"></div>
     </div>
 
-    <div id="result"></div>
+    
 
     <script>
         function toggleHeightFields() {
@@ -163,6 +165,103 @@
                 ftInches.style.display = "none";
                 cmField.style.display = "block";
             }
+        }
+
+        function calculateBMI() {
+            // Get input values
+            event.preventDefault();
+
+            var gender = document.getElementById('gender').value;
+            var age = document.getElementById('age').value;
+            let height;
+            if (document.getElementById('heightUnit').value === 'cm') {
+                height = parseFloat(document.getElementById('height-cm').value) 
+            } else {
+                const feet = parseFloat(document.getElementById('height-ft').value);
+                const inches = parseFloat(document.getElementById('height-in').value);
+                // Convert feet and inches to centimeters
+                height = feet * 30.48 + inches * 2.54;
+            }
+
+            let weight = parseFloat(document.getElementById('weight').value);
+            if (document.getElementById('weightUnit').value === 'lbs') {
+                weight *= 0.453592; // Convert lbs to kg
+            }
+            // Prepare data for the API request
+            var data = {
+                "gender": gender,
+                "age": age,
+                "height": height,
+                "weight": weight
+            };
+
+            // Make a POST request to the Flask API endpoint
+            fetch('/calculate_bmi', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById('result').innerHTML = 'BMI: ' + result.bmi.toFixed(2);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('result').innerHTML = 'Error calculating BMI.';
+            });
+        }
+
+        function calculateCalorie() {
+            // Get input values
+            event.preventDefault();
+
+            var gender = document.getElementById('gender').value;
+            var age = document.getElementById('age').value;
+            let height;
+            if (document.getElementById('heightUnit').value === 'cm') {
+                height = parseFloat(document.getElementById('height-cm').value) 
+            } else {
+                const feet = parseFloat(document.getElementById('height-ft').value);
+                const inches = parseFloat(document.getElementById('height-in').value);
+                // Convert feet and inches to centimeters
+                height = feet * 30.48 + inches * 2.54;
+            }
+
+            let weight = parseFloat(document.getElementById('weight').value);
+            if (document.getElementById('weightUnit').value === 'lbs') {
+                weight *= 0.453592; // Convert lbs to kg
+            }
+
+            // Prepare data for the API request
+            var data = {
+                "gender": gender,
+                "age": age,
+                "height": height,
+                "weight": weight
+            };
+
+            // Make a POST request to the Flask API endpoint
+            fetch('/calculate_calories', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById('result').innerHTML = 'Calorie Intake Count: ' + result.calorie_intake.toFixed(2);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('result').innerHTML = 'Error calculating Calorie intake.';
+            });
+        }
+
+        function openDietPlan() {
+            window.location.href = 'dietplan';
         }
     </script>
 </body>
