@@ -3,6 +3,7 @@ import time
 import json
 import sys
 import bcrypt
+import random
 import uvicorn
 from async_requests import AsyncBaseApi
 from fastapi import FastAPI, Request, HTTPException, Response
@@ -109,86 +110,108 @@ async def simple_get():
 
 @app.post("/viewDiet")
 async def multi_get(request: Request):
-    result={}
-    t1 = time.time()
-    post_body = await request.json()   
-    post_url = f"https://api.edamam.com/api/meal-planner/v1/{str(post_app_id)}/select"
-    post_params = {
-        "app_id": post_app_id,
-        "app_key": post_app_key
-    }
-    post_resp = await async_base_api.post(url=post_url, body=json.dumps(post_body), params=post_params)
-    if post_resp["status_code"] == 200:
-        resp = json.loads(post_resp['body'])
-        if resp["status"] == "OK":
-            recipe_urls = {
-                "Breakfast": [],
-                "Lunch": [],
-                "Dinner": []
-            }
-            for selection_list in resp["selection"]:
-                for meal, assigned_obj in selection_list["sections"].items():
-                    if assigned_obj["assigned"]:
-                        recipe_urls[meal].append(str(assigned_obj["assigned"]).split("#")[1])
-            get_resp_map = {}
-            get_url = f"https://api.edamam.com/api/recipes/v2/RECIPE?type=public&app_id={get_app_id}&app_key={get_app_key}"
-            for meal in recipe_urls:
-                for recipe_id in recipe_urls[meal]:
-                    string = meal + "::" + recipe_id
-                    get_resp_map[string] = await async_base_api.get(get_url.replace("RECIPE", recipe_id))
-                    
-
-            for i in range(1,8):
-                day="Day_%i" %(i)
-                result[day]={}
-            bc=1
-            lc=1
-            dc=1
-            for key in  get_resp_map:
-                data={}
-                response_data= get_resp_map[key]
-                recipe_data=json.loads(response_data["body"])["recipe"]
-                #print(recipe_data)
-                data["name"]=recipe_data["label"]
-                data["image"]=recipe_data["images"]["SMALL"]["url"]
-                data["servings"]=recipe_data["yield"]
-                calories=(recipe_data["totalNutrients"]["ENERC_KCAL"]["quantity"])/recipe_data["yield"]
-                protein=(recipe_data["totalNutrients"]["PROCNT"]["quantity"])/recipe_data["yield"]
-                carbs=(recipe_data["totalNutrients"]["CHOCDF"]["quantity"])/recipe_data["yield"]
-                fat=(recipe_data["totalNutrients"]["FAT"]["quantity"])/recipe_data["yield"]
-                data["calories"]= "%i %s" %(calories,recipe_data["totalNutrients"]["ENERC_KCAL"]["unit"]) 
-                data["protein"]= "%i %s" %(protein,recipe_data["totalNutrients"]["PROCNT"]["unit"])
-                data["carbs"]= "%i %s" %(carbs,recipe_data["totalNutrients"]["CHOCDF"]["unit"])
-                data["fat"]= "%i %s" %(fat,recipe_data["totalNutrients"]["FAT"]["unit"])
-                data["source"]=recipe_data["source"]
-                data["url"]=recipe_data["url"]
-                data["instructions"]=recipe_data["ingredientLines"]
-                # print(data)
-                if "Breakfast" in key:
-                    meal_type="Breakfast"
-                    day="Day_%i" %(bc)
-                    result[day][meal_type]=data
-                    bc= bc+1
-                elif "Lunch" in key:
-                    meal_type="Lunch"
-                    day="Day_%i" %(lc)
-                    result[day][meal_type]=data
-                    lc = lc+1
-                else:
-                    meal_type="Dinner"
-                    day="Day_%i" %(dc)
-                    result[day][meal_type]=data
-                    dc = dc+1
-            # print(result)
+    try:
+        result={}
+        t1 = time.time()
+        post_body = await request.json()   
+        post_url = f"https://api.edamam.com/api/meal-planner/v1/{str(post_app_id)}/select"
+        post_params = {
+            "app_id": post_app_id,
+            "app_key": post_app_key
+        }
+        # print(post_body)
+        post_resp = await async_base_api.post(url=post_url, body=json.dumps(post_body), params=post_params)
+        # print(post_resp)
+        if post_resp["status_code"] == 200:
+            resp = json.loads(post_resp['body'])
+            if resp["status"] == "OK" or resp["status"] == "INCOMPLETE":
+                recipe_urls = {
+                    "Breakfast": [],
+                    "Lunch": [],
+                    "Dinner": []
+                }
+                for selection_list in resp["selection"]:
+                    for meal, assigned_obj in selection_list["sections"].items():
+                        if assigned_obj["assigned"]:
+                            recipe_urls[meal].append(str(assigned_obj["assigned"]).split("#")[1])
+                get_resp_map = {}
+                get_url = f"https://api.edamam.com/api/recipes/v2/RECIPE?type=public&app_id={get_app_id}&app_key={get_app_key}"
+                for meal in recipe_urls:
+                    for recipe_id in recipe_urls[meal]:
+                        string = meal + "::" + recipe_id
+                        get_resp_map[string] = await async_base_api.get(get_url.replace("RECIPE", recipe_id))
+                        
+                for i in range(1,8):
+                    day="Day_%i" %(i)
+                    result[day]={}
+                bc=1
+                lc=1
+                dc=1
+                for key in  get_resp_map:
+                    data={}
+                    response_data= get_resp_map[key]
+                    # print(key)
+                    # print(response_data if response_data == {} else "data available")
+                    recipe_data=json.loads(response_data["body"])["recipe"]
+                    #print(recipe_data)
+                    data["name"]=recipe_data["label"]
+                    data["image"]=recipe_data["images"]["SMALL"]["url"]
+                    data["servings"]=recipe_data["yield"]
+                    calories=(recipe_data["totalNutrients"]["ENERC_KCAL"]["quantity"])/recipe_data["yield"]
+                    protein=(recipe_data["totalNutrients"]["PROCNT"]["quantity"])/recipe_data["yield"]
+                    carbs=(recipe_data["totalNutrients"]["CHOCDF"]["quantity"])/recipe_data["yield"]
+                    fat=(recipe_data["totalNutrients"]["FAT"]["quantity"])/recipe_data["yield"]
+                    data["calories"]= "%i %s" %(calories,recipe_data["totalNutrients"]["ENERC_KCAL"]["unit"]) 
+                    data["protein"]= "%i %s" %(protein,recipe_data["totalNutrients"]["PROCNT"]["unit"])
+                    data["carbs"]= "%i %s" %(carbs,recipe_data["totalNutrients"]["CHOCDF"]["unit"])
+                    data["fat"]= "%i %s" %(fat,recipe_data["totalNutrients"]["FAT"]["unit"])
+                    data["source"]=recipe_data["source"]
+                    data["url"]=recipe_data["url"]
+                    data["instructions"]=recipe_data["ingredientLines"]
+                    # print(data)
+                    if "Breakfast" in key:
+                        meal_type="Breakfast"
+                        day="Day_%i" %(bc)
+                        result[day][meal_type]=data
+                        bc= bc+1
+                    elif "Lunch" in key:
+                        meal_type="Lunch"
+                        day="Day_%i" %(lc)
+                        result[day][meal_type]=data
+                        lc = lc+1
+                    else:
+                        meal_type="Dinner"
+                        day="Day_%i" %(dc)
+                        result[day][meal_type]=data
+                        dc = dc+1
+                miss_data_day = -1
+                for i in range(1,8):
+                    day="Day_%i" %(i)
+                    if result[day] == {} or result[day]['Breakfast'] == {} or result[day]['Lunch'] == {} or result[day]['Dinner'] == {}:
+                        miss_data_day = i
+                        break
+                if miss_data_day != -1:
+                    if miss_data_day == 1:
+                        raise Exception("no data found")
+                    sample_day_data = []
+                    for i in range(1,miss_data_day+1):
+                        day="Day_%i" %(i)
+                        sample_day_data.append(result[day])
+                    for i in range(miss_data_day,8):
+                        day="Day_%i" %(i)
+                        result[day] = random.choice(sample_day_data)
+            else:
+                print("status not OK")
+                return JSONResponse(content={"success": False,"data":{},"error":"no data found for this combination filter, try modifying the filter"}, status_code=500)
         else:
-            print("status not OK")
-    else:
-        print("post request failed - %s"%(post_resp['error']))
-        return JSONResponse(content={"success": False,"data":result,"error":post_resp['error']}, status_code=401)
-    t2 = time.time()
-    print(t2-t1)
-    # print(post_resp)
-    return JSONResponse(content={"success": True,"data":result,"error":""}, status_code=200)
+            print("post request failed - %s"%(post_resp['error']))
+            return JSONResponse(content={"success": False,"data":result,"error":post_resp['error']}, status_code=401)
+        t2 = time.time()
+        print(t2-t1)
+        return JSONResponse(content={"success": True,"data":result,"error":""}, status_code=200)
+    except Exception as e:
+        return JSONResponse(content={"success": False,"data":{},"error":"no data found for this combination filter, try modifying the filter"}, status_code=500)
+
 
 @app.get('/', response_class=HTMLResponse)
 def default_route(request: Request):
@@ -381,6 +404,8 @@ async def get_exercises(request: Request):
         for muscle in data_by_muscle:
             while len(data_by_muscle[muscle]) <= 21:
                 data_by_muscle[muscle] += data_by_muscle[muscle]
+        if len(data_by_muscle) < 1:
+            return JSONResponse(content={"message": "No data found for this combination filter, try modifying the filter","success": False, "error": "no data found for this combination filter"},status_code=500)
         muscle_exercise_count_map = {}
         resp = []
         while len(resp) != 7:
@@ -398,7 +423,7 @@ async def get_exercises(request: Request):
             resp_obj["Day_%d"%(i+1)] = resp[i]
         return JSONResponse(content={"exercise_data": resp_obj,"success": True},status_code=200)
     except Exception as e:
-        raise JSONResponse(content={"message": "error while fetching exercise data from mongoDB","success": False, "error": str(e)},status_code=401)
+        return JSONResponse(content={"success": False,"data":{},"error":"no data found for this combination filter, try modifying the filter"}, status_code=500)
 
 if __name__ == "__main__":
     uvicorn.run("app:app", host="0.0.0.0", port=8000, 

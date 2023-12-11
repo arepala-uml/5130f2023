@@ -457,7 +457,7 @@ button {
             ,'Kosher','Low-Carb','Low-Fat','Low potassium','Low-Sodium','Mediterranean','No oil added',
             'No-sugar','Paleo','Pescatarian','Pork-free','Red meat-free','Sugar-conscious','Vegan',
             'Vegetarian','Mollusk-Free','Sulfite-Free']
-    var foodData =['Alcohol cocktail','Biscuits and cookies','Bread','Cereals','Condiments and sauces'
+    var foodData =['Biscuits and cookies','Bread','Cereals','Condiments and sauces'
 ,'Desserts','Drinks','Egg','Ice cream and custard','Main course','Pancake','Pasta','Pastry','Pies and tarts'
 ,'Pizza','Preps','Preserve','Salad','Sandwiches','Seafood','Side dish','Soup','Special occasions'
 ,'Starter','Sweets']
@@ -986,6 +986,9 @@ function generateMealPlan() {
         alert("Please select the food items.");
         return;
     }
+
+
+
     var postData= {
         "size": 7,
         "plan": {
@@ -1103,6 +1106,20 @@ function generateMealPlan() {
             postData["plan"]["accept"]["all"].push({"diet":dietItems})
     }
     console.log(breakfastItems)
+    if (breakfastItems.length < 1) {
+        alert("please select atleast one item for breakfast")
+        return;
+    }
+
+    if (lunchItems.length < 1) {
+        alert("please select atleast one item for lunch")
+        return;
+    }
+    if (dinnerItems.length < 1) {
+        alert("please select atleast one item for dinner")
+        return;
+    }
+
     if (breakfastItems.length != 0 && lunchItems.length != 0 && dinnerItems.length != 0){
         breakfastDict["fit"]["ENERC_KCAL"]["min"]= breakfastmin
         breakfastDict["fit"]["ENERC_KCAL"]["max"]=breakfastmax
@@ -1139,6 +1156,11 @@ function generateMealPlan() {
     console.log(postData)
 
     var responseData={}
+    const mealPlanContainer = document.getElementById('mealPlan');
+    const mealPlanNameElement = document.getElementById('meal-plan-name');
+    mealPlanContainer.innerHTML = ''
+    mealPlanNameElement.textContent = '';
+
     fetch('/viewDiet', {
         method: 'POST',
         headers: {
@@ -1169,7 +1191,7 @@ function generateMealPlan() {
 function displayData(data){
     console.log(data)
     const mealPlanContainer = document.getElementById('mealPlan');
-    mealPlanContainer.innerHTML = ''
+    // mealPlanContainer.innerHTML = ''
     const mealPlanNameText = "Your Weekly Meal Plan";
     const mealPlanNameElement = document.getElementById('meal-plan-name');
     //mealPlanNameElement.appendChild(document.createElement('br'));

@@ -1,6 +1,6 @@
 # Diet Fit App
 
-This Flask-powered web application is designed to help users calculate their BMI and estimate their average calorie intake, using their personal information as input. In the future, the application will also provide tailored diet plans for users in the weeks ahead
+This is a Fast-API powered web application which designed to help users calculate their BMI and estimate their average calorie intake, using their personal information as input. This application will also provide tailored diet and fitness plans for users for a week.
 
 ## Table of Contents
 
