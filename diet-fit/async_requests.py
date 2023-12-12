@@ -26,8 +26,8 @@ class AsyncBaseApi:
             "Accept": "application/json",
             "Content-Type": "application/json",
             # edamam user - incase of API limit hit
-            # "edamam-account-user": "edamam"
-            "edamam-account-user": "JithendraKoleti"
+            "edamam-account-user": "edamam"
+            # "edamam-account-user": "JithendraKoleti"
         }
 
     @classmethod
@@ -57,7 +57,7 @@ class AsyncBaseApi:
         self, url: str = None, params: Dict = None, body: str = None
     ) -> Dict[str, any]:
         updated_headers = self.headers.copy()
-        if self.headers["edamam-account-user"] == "edamam":
+        if updated_headers["edamam-account-user"]:
             updated_headers.pop("edamam-account-user")
         return await self._execute_request(
             method="POST",
